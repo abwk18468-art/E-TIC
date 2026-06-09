@@ -1,7 +1,7 @@
 {
   "name": "E-TIC - منصة التعدين السحابي",
   "short_name": "E-TIC",
-  "description": "منصة تعدين سحابي متطورة تتيح لك استثمار أموالك بذكاء وتحقيق أرباح يومية",
+  "description": "منصة تعدين سحابي متطورة",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -10,75 +10,19 @@
   "lang": "ar",
   "background_color": "#0a0014",
   "theme_color": "#0a0014",
-  "categories": ["finance", "business", "productivity"],
+  "categories": ["finance", "business"],
   "icons": [
     {
-      "src": "icons/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-512x512.png",
+      "src": "icon.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "icons/apple-touch-icon.png",
-      "sizes": "180x180",
+      "src": "icon.png",
+      "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "التعدين اليومي",
-      "short_name": "تعدين",
-      "description": "ابدأ التعدين اليومي واكسب الأرباح",
-      "url": "./?page=mining",
-      "icons": [
-        {
-          "src": "icons/icon-192x192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "الباقات",
-      "short_name": "باقات",
-      "description": "استعرض باقات الاستثمار",
-      "url": "./?page=plans",
-      "icons": [
-        {
-          "src": "icons/icon-192x192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "إيداع الأموال",
-      "short_name": "إيداع",
-      "description": "إيداع الأموال في حسابك",
-      "url": "./?page=deposit",
-      "icons": [
-        {
-          "src": "icons/icon-192x192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "سحب الأرباح",
-      "short_name": "سحب",
-      "description": "سحب أرباحك إلى محفظتك",
-      "url": "./?page=withdraw",
-      "icons": [
-        {
-          "src": "icons/icon-192x192.png",
-          "sizes": "192x192"
-        }
-      ]
     }
   ]
 }
