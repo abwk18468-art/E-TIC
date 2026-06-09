@@ -13,67 +13,22 @@
   "categories": ["finance", "business", "productivity"],
   "icons": [
     {
-      "src": "icon-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icon-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icon-152x152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icon-192x192.png",
+      "src": "icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
-    },    {
-      "src": "icon-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any"
     },
     {
-      "src": "icon-512x512.png",
+      "src": "icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "screenshot-1.png",
-      "sizes": "1080x1920",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "الصفحة الرئيسية لمنصة E-TIC"
     },
     {
-      "src": "screenshot-2.png",
-      "sizes": "1080x1920",
+      "src": "icons/apple-touch-icon.png",
+      "sizes": "180x180",
       "type": "image/png",
-      "form_factor": "narrow",
-      "label": "باقات الاستثمار الذكي"
+      "purpose": "any"
     }
   ],
   "shortcuts": [
@@ -84,8 +39,8 @@
       "url": "./?page=mining",
       "icons": [
         {
-          "src": "icon-96x96.png",
-          "sizes": "96x96"
+          "src": "icons/icon-192x192.png",
+          "sizes": "192x192"
         }
       ]
     },
@@ -96,7 +51,8 @@
       "url": "./?page=plans",
       "icons": [
         {
-          "src": "icon-96x96.png",          "sizes": "96x96"
+          "src": "icons/icon-192x192.png",
+          "sizes": "192x192"
         }
       ]
     },
@@ -107,8 +63,8 @@
       "url": "./?page=deposit",
       "icons": [
         {
-          "src": "icon-96x96.png",
-          "sizes": "96x96"
+          "src": "icons/icon-192x192.png",
+          "sizes": "192x192"
         }
       ]
     },
@@ -119,21 +75,10 @@
       "url": "./?page=withdraw",
       "icons": [
         {
-          "src": "icon-96x96.png",
-          "sizes": "96x96"
+          "src": "icons/icon-192x192.png",
+          "sizes": "192x192"
         }
       ]
     }
-  ],
-  "related_applications": [],
-  "prefer_related_applications": false,
-  "share_target": {
-    "action": "./share",
-    "method": "GET",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url"
-    }
-  }
+  ]
 }
