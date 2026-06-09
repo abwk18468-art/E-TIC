@@ -869,46 +869,47 @@
 
         // === نظام الإنجازات ===
         const ACHIEVEMENTS = [
-          {
-            id: 'first_mining',
-            title: '🌟 أول تعدين',
-            desc: 'قم بأول نقرة تعدين',
-            reward: 1,
-            points: 10,
-            condition: (user) => (user.totalEarned || 0) > 0
-          },
-          {
-            id: 'first_investor',
-            title: '💎 مستثمر',
-            desc: 'اشترِ أول باقة',            reward: 5,
-            points: 50,
-            condition: (user) => (user.planId || 0) > 0
-          },
-          {
-            id: 'active_referrer',
-            title: '👥 محيل نشط',
-            desc: 'ادعُ 5 أشخاص',
-            reward: 20,
-            points: 200,
-            condition: (user) => (user.referrals || 0) >= 5
-          },
-          {
-            id: 'committed',
-            title: '🔥 ملتزم',
-            desc: '10 أيام تعدين متتالية',
-            reward: 50,
-            points: 500,
-            condition: (user) => (user.consecutiveMiningDays || 0) >= 10
-          },
-          {
-            id: 'elite',
-            title: '🏆 نخبة',
-            desc: 'الوصول للمستوى 5',
-            reward: 100,
-            points: 1000,
-            condition: (user) => calculateLevel(user.points || 0) >= 5
-          }
-        ];
+  {
+    id: 'first_mining',
+    title: '🌟 أول تعدين',
+    desc: 'قم بأول نقرة تعدين',
+    reward: 0.02,      // تم التعديل: 10 نقاط ÷ 500
+    points: 10,
+    condition: (user) => (user.totalEarned || 0) > 0
+  },
+  {
+    id: 'first_investor',
+    title: '💎 مستثمر',
+    desc: 'اشترِ أول باقة',
+    reward: 0.10,      // تم التعديل: 50 نقطة ÷ 500
+    points: 50,
+    condition: (user) => (user.planId || 0) > 0
+  },
+  {
+    id: 'active_referrer',
+    title: '👥 محيل نشط',
+    desc: 'ادعُ 5 أشخاص',
+    reward: 0.40,      // تم التعديل: 200 نقطة ÷ 500
+    points: 200,
+    condition: (user) => (user.referrals || 0) >= 5
+  },
+  {
+    id: 'committed',
+    title: '🔥 ملتزم',
+    desc: '10 أيام تعدين متتالية',
+    reward: 1.00,      // تم التعديل: 500 نقطة ÷ 500
+    points: 500,
+    condition: (user) => (user.consecutiveMiningDays || 0) >= 10
+  },
+  {
+    id: 'elite',
+    title: '🏆 نخبة',
+    desc: 'الوصول للمستوى 5',
+    reward: 2.00,      // تم التعديل: 1000 نقطة ÷ 500
+    points: 1000,
+    condition: (user) => calculateLevel(user.points || 0) >= 5
+  }
+];
 
         const LEVELS = [
           { level: 1, name: 'مبتدئ', icon: '🥉', minPoints: 0, maxPoints: 100 },
