@@ -122,36 +122,291 @@
         
         .card { background: var(--card-bg); border-radius: 20px; padding: 24px; margin-bottom: 18px; border: 1px solid var(--border); box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 30px rgba(0, 240, 255, 0.1); backdrop-filter: blur(20px); transition: var(--transition); }
         .card:hover { border-color: var(--accent); box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 40px var(--accent-glow); transform: translateY(-3px); }
-        nav { position: fixed; bottom: 0; width: 100%; background: rgba(10, 0, 20, 0.95); backdrop-filter: blur(25px); display: none; justify-content: space-around; padding: 10px 0 18px; border-top: 1px solid var(--border); z-index: 10000; border-radius: 20px 20px 0 0; box-shadow: 0 -5px 30px rgba(0, 240, 255, 0.2); }
+        
+        nav { 
+            position: fixed; 
+            bottom: 0; 
+            width: 100%; 
+            background: rgba(10, 0, 20, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            display: none; 
+            justify-content: space-around; 
+            padding: 10px 0 18px; 
+            border-top: 1px solid rgba(0, 240, 255, 0.15);
+            z-index: 10000; 
+            border-radius: 20px 20px 0 0; 
+            box-shadow: 0 -5px 30px rgba(0, 240, 255, 0.1);
+        }
+        
         .nav-item { color: var(--text-secondary); font-size: 10px; text-align: center; flex: 1; cursor: pointer; transition: var(--transition); padding: 6px 4px; }
         .nav-item.active { color: var(--accent); transform: translateY(-2px); font-weight: 600; text-shadow: 0 0 15px var(--accent-glow); }
         .nav-item i { font-size: 1.2rem; margin-bottom: 2px; display: block; }
         
         .balance-card { text-align: center; padding: 28px 20px !important; background: linear-gradient(145deg, rgba(20, 5, 40, 0.95), rgba(10, 0, 30, 0.98)); border: 2px solid var(--accent) !important; box-shadow: 0 0 50px var(--accent-glow) !important; }
         .balance-amount { font-size: 3.2rem; font-weight: 900; background: linear-gradient(45deg, var(--accent), var(--secondary)); -webkit-background-clip: text; background-clip: text; color: transparent; font-family: 'Orbitron', sans-serif; }
-        
-        .profile-header { padding: 30px 20px; background: linear-gradient(145deg, rgba(0, 240, 255, 0.08), rgba(255, 0, 229, 0.08)); border-radius: 20px; margin-bottom: 20px; border: 1px solid var(--border); text-align: center; position: relative; }
+                .profile-header { padding: 30px 20px; background: linear-gradient(145deg, rgba(0, 240, 255, 0.08), rgba(255, 0, 229, 0.08)); border-radius: 20px; margin-bottom: 20px; border: 1px solid var(--border); text-align: center; position: relative; }
         .user-avatar { width: 90px; height: 90px; border-radius: 24px; background: linear-gradient(145deg, var(--accent), var(--secondary)); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800; color: #0a0014; margin: 0 auto 15px; box-shadow: 0 0 40px var(--accent-glow); font-family: 'Orbitron', sans-serif; }
         
         .plan-expiry-badge { margin-top: 10px; padding: 8px 15px; background: rgba(255, 0, 85, 0.15); border: 1px solid rgba(255, 0, 85, 0.4); border-radius: 15px; color: #ff8fa3; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 8px; }
         .plan-expiry-badge.active { background: rgba(0, 255, 136, 0.15); border-color: rgba(0, 255, 136, 0.4); color: #80ffbb; }
 
-        .mining-status { background: rgba(10, 0, 30, 0.7); border-radius: 14px; padding: 15px; margin: 20px 0; text-align: center; border: 1px solid var(--border); }
-        .mining-clicks-container { display: flex; justify-content: center; gap: 8px; margin: 15px 0; }
-        .mining-click-dot { width: 14px; height: 14px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); border: 2px solid var(--border); transition: var(--transition); }
-        .mining-click-dot.filled { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
-        .mining-click-info { text-align: center; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 10px; }
-        .mining-per-click { color: var(--success); font-weight: 700; font-family: 'Orbitron', sans-serif; }
+        /* === نظام التعدين المحسّن === */
+        .mining-container {
+          width: 100%;
+          max-width: 400px;
+          margin: 0 auto;
+        }
+
+        .mining-display {
+          background: linear-gradient(145deg, rgba(0, 240, 255, 0.1), rgba(255, 0, 229, 0.1));
+          border: 2px solid var(--accent);
+          border-radius: 24px;
+          padding: 30px;
+          text-align: center;
+          margin-bottom: 20px;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .mining-display::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: linear-gradient(45deg, transparent, rgba(0, 240, 255, 0.1), transparent);
+          animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+          0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+          100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .current-item {
+          font-size: 6rem;
+          margin: 20px 0;
+          position: relative;
+          z-index: 1;
+          animation: itemFloat 2s ease-in-out infinite;
+        }
+
+        @keyframes itemFloat {
+          0%, 100% { transform: translateY(0px); }          50% { transform: translateY(-10px); }
+        }
+
+        .item-name {
+          font-size: 1.5rem;
+          font-weight: 900;
+          color: var(--accent);
+          margin: 10px 0;
+          font-family: 'Orbitron', sans-serif;
+        }
+
+        .item-value {
+          font-size: 2rem;
+          font-weight: 900;
+          color: var(--success);
+          margin: 10px 0;
+          text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+          font-family: 'Orbitron', sans-serif;
+        }
+
+        .mining-clicks-container { 
+          display: flex; 
+          justify-content: center; 
+          gap: 12px; 
+          margin: 20px 0; 
+        }
+
+        .mining-click-dot { 
+          width: 20px; 
+          height: 20px; 
+          border-radius: 50%; 
+          background: rgba(255, 255, 255, 0.1); 
+          border: 3px solid var(--border); 
+          transition: var(--transition);
+          position: relative;
+        }
+
+        .mining-click-dot.filled { 
+          background: var(--accent); 
+          border-color: var(--accent); 
+          box-shadow: 0 0 15px var(--accent-glow);
+          animation: dotPulse 0.5s ease;
+        }
+
+        @keyframes dotPulse {
+          0% { transform: scale(0.5); }
+          50% { transform: scale(1.3); }
+          100% { transform: scale(1); }
+        }
+        .mining-btn {
+          width: 100%;
+          height: 70px;
+          background: linear-gradient(145deg, var(--accent), var(--secondary));
+          border: none;
+          border-radius: 20px;
+          color: white;
+          font-size: 1.2rem;
+          font-weight: 900;
+          cursor: pointer;
+          transition: var(--transition);
+          box-shadow: 0 10px 30px var(--accent-glow);
+          font-family: 'Orbitron', sans-serif;
+          letter-spacing: 2px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .mining-btn::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 0;
+          height: 0;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.3);
+          transform: translate(-50%, -50%);
+          transition: width 0.6s, height 0.6s;
+        }
+
+        .mining-btn:active::before {
+          width: 300px;
+          height: 300px;
+        }
+
+        .mining-btn:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+
+        .mining-btn:disabled::before {
+          display: none;
+        }
+
+        .mining-stats {          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+          margin: 20px 0;
+        }
+
+        .mining-stat-card {
+          background: rgba(10, 0, 30, 0.6);
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          padding: 15px;
+          text-align: center;
+        }
+
+        .mining-stat-value {
+          font-size: 1.5rem;
+          font-weight: 900;
+          color: var(--accent);
+          font-family: 'Orbitron', sans-serif;
+        }
+
+        .mining-stat-label {
+          font-size: 0.75rem;
+          color: var(--text-secondary);
+          margin-top: 5px;
+        }
+
+        .inventory-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 10px;
+          margin-top: 20px;
+        }
+
+        .inventory-item {
+          background: rgba(10, 0, 30, 0.6);
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          padding: 10px;
+          text-align: center;
+          transition: var(--transition);
+          cursor: pointer;
+        }
+
+        .inventory-item:hover {
+          border-color: var(--accent);
+          transform: translateY(-3px);
+          box-shadow: 0 5px 15px var(--accent-glow);
+        }
+        .inventory-item-icon {
+          font-size: 2rem;
+          margin-bottom: 5px;
+        }
+
+        .inventory-item-count {
+          font-size: 0.7rem;
+          color: var(--text-secondary);
+        }
+
+        .mining-status { 
+          background: rgba(10, 0, 30, 0.7); 
+          border-radius: 14px; 
+          padding: 15px; 
+          margin: 20px 0; 
+          text-align: center; 
+          border: 1px solid var(--border); 
+        }
+
+        .mining-click-info { 
+          text-align: center; 
+          font-size: 0.8rem; 
+          color: var(--text-secondary); 
+          margin-bottom: 10px; 
+        }
+
+        .mining-per-click { 
+          color: var(--success); 
+          font-weight: 700; 
+          font-family: 'Orbitron', sans-serif; 
+        }
 
         #adminModal { position: fixed; inset: 0; background: rgba(5, 0, 15, 0.95); display: none; align-items: center; justify-content: center; z-index: 200000; padding: 20px; overflow-y: auto; backdrop-filter: blur(15px); }
         #adminModal .card { max-width: 450px; width: 100%; max-height: 85vh; overflow-y: auto; }
-        .input-style { width: 100%; background: rgba(10, 0, 30, 0.7); border: 1px solid var(--border); border-radius: 14px; padding: 14px 20px; color: var(--text-primary); outline: none; margin-bottom: 12px; font-size: 15px; text-align: center; transition: var(--transition); }        .input-style:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+        .input-style { width: 100%; background: rgba(10, 0, 30, 0.7); border: 1px solid var(--border); border-radius: 14px; padding: 14px 20px; color: var(--text-primary); outline: none; margin-bottom: 12px; font-size: 15px; text-align: center; transition: var(--transition); }
+        .input-style:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
         .btn-3d { background: linear-gradient(145deg, var(--secondary), #8b00ff); box-shadow: 0 8px 25px var(--secondary-glow); border: none; border-radius: 14px; font-weight: 700; color: white; cursor: pointer; padding: 14px 20px; font-size: 15px; width: 100%; margin: 10px 0; transition: var(--transition); }
         .btn-accent { background: linear-gradient(145deg, var(--accent), #00a8b3); color: #0a0014; box-shadow: 0 8px 25px var(--accent-glow); border:none; border-radius: 14px; font-weight: 700; cursor: pointer; padding: 14px 20px; width: 100%; transition: var(--transition); }
         .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text-primary); border-radius: 14px; padding: 14px; cursor: pointer; width: 100%; transition: var(--transition); }
         .btn-outline:hover { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); }
         .btn-danger { background: linear-gradient(145deg, var(--danger), #b3003c); color: white; border: none; border-radius: 14px; padding: 14px; cursor: pointer; width: 100%; }
         .btn-success { background: linear-gradient(145deg, var(--success), #00b35f); color: #0a0014; border: none; border-radius: 14px; padding: 14px; cursor: pointer; width: 100%; font-weight: 700; }
+        
+        .logout-btn {
+            width: 100%;
+            padding: 16px;
+            margin-top: 20px;
+            background: linear-gradient(145deg, rgba(255, 0, 85, 0.1), rgba(255, 0, 85, 0.05));
+            border: 2px solid var(--danger);
+            border-radius: 16px;            color: var(--danger);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .logout-btn:hover {
+            background: linear-gradient(145deg, var(--danger), #b3003c);
+            color: white;
+            box-shadow: 0 8px 25px rgba(255, 0, 85, 0.4);
+            transform: translateY(-2px);
+        }
         
         .hidden { display: none !important; }
         .flex { display: flex; } .items-center { align-items: center; } .justify-center { justify-content: center; } .justify-between { justify-content: space-between; }
@@ -185,7 +440,6 @@
 
         .deposit-container { width: 100%; max-width: 400px; margin: 0 auto; }
         .deposit-scroll { overflow-y: auto; -webkit-overflow-scrolling: touch; max-height: calc(100dvh - 140px); padding-bottom: 20px; }
-
         #planDetailsModal { position: fixed; inset: 0; background: rgba(5, 0, 15, 0.92); display: none; align-items: center; justify-content: center; z-index: 200001; padding: 20px; backdrop-filter: blur(20px); }
         #planDetailsModal.show { display: flex; }
         .plan-modal { width: 100%; max-width: 420px; max-height: 85dvh; overflow-y: auto; background: linear-gradient(145deg, rgba(20, 5, 40, 0.98), rgba(10, 0, 30, 0.98)); border: 2px solid var(--accent); border-radius: 24px; padding: 30px 25px; position: relative; box-shadow: 0 0 60px var(--accent-glow); animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -194,7 +448,8 @@
         .plan-modal-close:hover { background: var(--danger); color: white; }
         .plan-modal-icon { width: 80px; height: 80px; border-radius: 24px; background: linear-gradient(145deg, var(--accent), var(--secondary)); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: #0a0014; margin: 0 auto 20px; box-shadow: 0 0 40px var(--accent-glow); }
         .plan-modal-title { font-size: 1.8rem; font-weight: 900; color: var(--accent); text-align: center; margin-bottom: 8px; text-shadow: 0 0 20px var(--accent-glow); font-family: 'Orbitron', sans-serif; }
-        .plan-modal-price { font-size: 3rem; font-weight: 900; text-align: center; background: linear-gradient(45deg, var(--accent), var(--secondary)); -webkit-background-clip: text; background-clip: text; color: transparent; margin: 15px 0; font-family: 'Orbitron', sans-serif; }        .plan-modal-description { background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 14px; padding: 15px; margin: 20px 0; text-align: center; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
+        .plan-modal-price { font-size: 3rem; font-weight: 900; text-align: center; background: linear-gradient(45deg, var(--accent), var(--secondary)); -webkit-background-clip: text; background-clip: text; color: transparent; margin: 15px 0; font-family: 'Orbitron', sans-serif; }
+        .plan-modal-description { background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 14px; padding: 15px; margin: 20px 0; text-align: center; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
         .plan-modal-stats { background: rgba(10, 0, 30, 0.6); border: 1px solid var(--border); border-radius: 14px; padding: 15px; margin: 20px 0; }
         .plan-stat-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(0, 240, 255, 0.1); }
         .plan-stat-row:last-child { border-bottom: none; }
@@ -216,13 +471,12 @@
         .reset-modal.show { display: flex; }
         .reset-modal-card { width: 100%; max-width: 400px; background: linear-gradient(145deg, rgba(20, 5, 40, 0.98), rgba(10, 0, 30, 0.98)); border: 2px solid var(--accent); border-radius: 24px; padding: 30px 25px; box-shadow: 0 0 60px var(--accent-glow); animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
 
-        /* === نظام الإنجازات === */
         .achievements-section {
           background: linear-gradient(145deg, rgba(0, 240, 255, 0.05), rgba(255, 0, 229, 0.05));
           border: 1px solid var(--border);
-          border-radius: 20px;
-          padding: 20px;
-          margin: 20px 0;
+          border-radius: 16px;
+          padding: 16px;
+          margin: 16px 0;
         }
 
         .level-badge {
@@ -234,7 +488,6 @@
           font-weight: 700;
           font-size: 0.9rem;
         }
-
         .level-1 { background: linear-gradient(135deg, #cd7f32, #8b4513); color: white; }
         .level-2 { background: linear-gradient(135deg, #c0c0c0, #808080); color: white; }
         .level-3 { background: linear-gradient(135deg, #ffd700, #daa520); color: #000; }
@@ -243,13 +496,21 @@
 
         .achievement-card {
           background: rgba(10, 0, 30, 0.6);
-          border: 1px solid var(--border);          border-radius: 16px;
+          border: 1px solid var(--border);
+          border-radius: 16px;
           padding: 16px;
           margin: 10px 0;
           display: flex;
           align-items: center;
           gap: 12px;
           transition: var(--transition);
+          cursor: pointer;
+        }
+
+        .achievement-card:hover {
+          border-color: var(--accent);
+          box-shadow: 0 0 20px var(--accent-glow);
+          transform: translateY(-2px);
         }
 
         .achievement-card.unlocked {
@@ -277,7 +538,6 @@
           color: white;
           box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
         }
-
         .achievement-icon.locked {
           background: rgba(255, 255, 255, 0.1);
           color: var(--text-secondary);
@@ -293,6 +553,7 @@
           font-size: 1rem;
           margin-bottom: 4px;
         }
+
         .achievement-desc {
           font-size: 0.85rem;
           color: var(--text-secondary);
@@ -325,29 +586,29 @@
           transition: width 0.5s ease;
         }
 
-        .level-progress {
-          background: rgba(10, 0, 30, 0.6);
+        .level-progress {          background: rgba(10, 0, 30, 0.6);
           border: 1px solid var(--border);
-          border-radius: 16px;
-          padding: 16px;
-          margin: 15px 0;
+          border-radius: 12px;
+          padding: 12px;
+          margin: 10px 0;
         }
 
         .level-info {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 10px;
+          margin-bottom: 8px;
           flex-wrap: wrap;
-          gap: 8px;
+          gap: 6px;
         }
+
         .points-display {
           text-align: center;
-          margin: 10px 0;
+          margin: 8px 0;
         }
 
         .points-value {
-          font-size: 2rem;
+          font-size: 1.8rem;
           font-weight: 900;
           background: linear-gradient(45deg, var(--accent), var(--secondary));
           -webkit-background-clip: text;
@@ -357,7 +618,7 @@
         }
 
         .points-label {
-          font-size: 0.9rem;
+          font-size: 0.85rem;
           color: var(--text-secondary);
         }
 
@@ -374,7 +635,6 @@
           animation: slideInRight 0.5s ease-out;
           max-width: 320px;
         }
-
         @keyframes slideInRight {
           from { transform: translateX(400px); opacity: 0; }
           to { transform: translateX(0); opacity: 1; }
@@ -390,13 +650,73 @@
           font-size: 2rem;
         }
 
-        .achievement-notification-text h4 {          font-size: 1.1rem;
+        .achievement-notification-text h4 {
+          font-size: 1.1rem;
           margin-bottom: 4px;
         }
 
         .achievement-notification-text p {
           font-size: 0.9rem;
           opacity: 0.9;
+        }
+
+        #achievementDetailModal {
+          position: fixed;
+          inset: 0;
+          background: rgba(5, 0, 15, 0.92);
+          display: none;
+          align-items: center;
+          justify-content: center;
+          z-index: 200003;
+          padding: 20px;
+          backdrop-filter: blur(20px);
+        }
+
+        #achievementDetailModal.show {
+          display: flex;
+        }
+
+        .achievement-detail-modal {
+          width: 100%;
+          max-width: 400px;
+          background: linear-gradient(145deg, rgba(20, 5, 40, 0.98), rgba(10, 0, 30, 0.98));
+          border: 2px solid var(--accent);
+          border-radius: 24px;
+          padding: 30px 25px;
+          position: relative;
+          box-shadow: 0 0 60px var(--accent-glow);          animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .show-all-btn {
+          width: 100%;
+          padding: 12px;
+          margin-top: 12px;
+          background: linear-gradient(145deg, rgba(0, 240, 255, 0.1), rgba(255, 0, 229, 0.1));
+          border: 1px solid var(--accent);
+          border-radius: 14px;
+          color: var(--accent);
+          font-size: 0.9rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: var(--transition);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+        }
+
+        .show-all-btn:hover {
+          background: linear-gradient(145deg, rgba(0, 240, 255, 0.2), rgba(255, 0, 229, 0.2));
+          box-shadow: 0 0 20px var(--accent-glow);
+          transform: translateY(-2px);
+        }
+
+        .show-all-btn i {
+          transition: transform 0.3s ease;
+        }
+
+        .show-all-btn.expanded i {
+          transform: rotate(180deg);
         }
 
         @media (max-width: 480px) {
@@ -408,8 +728,12 @@
             .plan-modal-price { font-size: 2.5rem; }
             .notification-bell { width: 40px; height: 40px; font-size: 1rem; }
             .achievement-notification { right: 10px; left: 10px; max-width: none; }
+            .logout-btn { font-size: 0.9rem; padding: 14px; }
+            .achievements-section { padding: 12px; }
+            .achievement-card { padding: 12px; }
+            .current-item { font-size: 5rem; }
+            .inventory-grid { grid-template-columns: repeat(3, 1fr); }
         }
-
         body { overscroll-behavior: none; }
     </style>
 </head>
@@ -439,7 +763,8 @@
         <div class="pwa-banner-actions">
             <button class="pwa-banner-install" onclick="installPWA()">تثبيت</button>
             <button class="pwa-banner-dismiss" onclick="dismissPWA()">لاحقاً</button>
-        </div>    </div>
+        </div>
+    </div>
 
     <div id="resetPasswordModal" class="reset-modal" onclick="if(event.target === this) closeResetModal()">
         <div class="reset-modal-card">
@@ -457,8 +782,7 @@
                 <label>كلمة المرور الجديدة (6 أحرف كحد أدنى)</label>
                 <i class="fa-solid fa-lock"></i>
             </div>
-            
-            <button onclick="resetPassword()" class="btn">تحديث كلمة المرور</button>
+                        <button onclick="resetPassword()" class="btn">تحديث كلمة المرور</button>
             <button onclick="closeResetModal()" class="btn btn-outline btn-small">إلغاء</button>
         </div>
     </div>
@@ -488,7 +812,32 @@
         </div>
     </div>
 
-    <div id="adminModal" onclick="if(event.target == this) closeAdminModal()">        <div class="card" onclick="event.stopPropagation()">
+    <div id="achievementDetailModal" onclick="if(event.target === this) closeAchievementDetail()">
+        <div class="achievement-detail-modal" onclick="event.stopPropagation()">
+            <button class="plan-modal-close" onclick="closeAchievementDetail()"><i class="fa-solid fa-times"></i></button>
+            <div class="achievement-icon unlocked" style="width: 80px; height: 80px; font-size: 2.5rem; margin: 0 auto 20px;" id="detailAchievementIcon">✓</div>
+            <h2 class="text-2xl font-bold text-center mb-3" id="detailAchievementTitle">عنوان الإنجاز</h2>
+            <p class="text-secondary text-center mb-4" id="detailAchievementDesc">وصف الإنجاز</p>
+            <div class="bg-white/5 rounded-xl p-4 mb-4">
+                <div class="flex justify-between mb-2">
+                    <span class="text-secondary">المكافأة المالية:</span>
+                    <span class="text-success font-bold" id="detailAchievementReward">$0.00</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-secondary">النقاط:</span>
+                    <span class="text-accent font-bold" id="detailAchievementPoints">0</span>
+                </div>
+                <div class="flex justify-between" id="detailAchievementDateRow" style="display: none;">
+                    <span class="text-secondary">تاريخ الفتح:</span>
+                    <span class="text-primary font-bold" id="detailAchievementDate">-</span>
+                </div>
+            </div>            <div id="detailAchievementStatus" class="text-center mb-4"></div>
+            <button onclick="closeAchievementDetail()" class="btn">إغلاق</button>
+        </div>
+    </div>
+
+    <div id="adminModal" onclick="if(event.target === this) closeAdminModal()">
+        <div class="card" onclick="event.stopPropagation()">
             <h3 class="text-xl font-bold text-center mb-6 text-accent uppercase">لوحة التحكم</h3>
             
             <div style="margin-bottom: 20px;">
@@ -531,13 +880,13 @@
             <div style="border-top: 1px solid var(--border); padding-top: 15px; margin-top:15px;">
                 <h4 class="text-sm font-bold text-accent mb-3">🎫 إدارة الكوبونات</h4>
                 <input type="text" id="adminCouponCode" placeholder="الكود" class="input-style uppercase">
-                <input type="number" id="adminCouponValue" placeholder="القيمة ($)" class="input-style">
-                <div class="flex gap-2">
+                <input type="number" id="adminCouponValue" placeholder="القيمة ($)" class="input-style">                <div class="flex gap-2">
                     <button onclick="createCoupon()" class="btn-accent flex-1 text-xs py-3">إنشاء</button>
                     <button onclick="loadAdminCoupons()" class="btn-outline flex-1 text-xs py-3">تحديث</button>
                 </div>
                 <div class="coupon-list mt-3" id="adminCouponList"></div>
-                <button onclick="deleteUsedCoupons()" class="w-full btn-danger text-xs mt-2 py-3">حذف المستخدم</button>            </div>
+                <button onclick="deleteUsedCoupons()" class="w-full btn-danger text-xs mt-2 py-3">حذف المستخدم</button>
+            </div>
             
             <button onclick="closeAdminModal()" class="w-full btn-outline text-xs mt-4 py-3">إغلاق</button>
         </div>
@@ -580,13 +929,13 @@
                         <span class="notification-badge hidden" id="notificationBadge">0</span>
                     </div>
                 </div>
-
                 <div class="user-avatar" id="userAvatarDisplay">U</div>
                 <h2 class="text-xl font-bold mb-1" id="userNameDisplay">---</h2>
                 <p class="text-secondary text-sm mb-2" id="userEmailDisplay">email@example.com</p>
                 <p class="text-accent text-xs font-mono bg-white/5 px-3 py-1 rounded-full inline-block border border-white/10">UID: <span id="userIdDisplay">000000</span></p>
                 
-                <div class="flex items-center gap-3 mt-4 p-3 bg-white/5 rounded-2xl border border-white/10">                    <div class="w-10 h-10 rounded-xl bg-accent flex items-center justify-center text-dark font-bold"><i class="fa-solid fa-crown"></i></div>
+                <div class="flex items-center gap-3 mt-4 p-3 bg-white/5 rounded-2xl border border-white/10">
+                    <div class="w-10 h-10 rounded-xl bg-accent flex items-center justify-center text-dark font-bold"><i class="fa-solid fa-crown"></i></div>
                     <div class="text-right flex-1">
                         <p class="text-[10px] text-secondary uppercase">الباقة النشطة</p>
                         <h4 class="font-bold text-accent" id="currentPlan">لا توجد باقة</h4>
@@ -611,31 +960,39 @@
                 </div>
             </div>
 
-            <!-- === نظام الإنجازات === -->
             <div class="achievements-section">
-              <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-trophy text-warning"></i> الإنجازات والمستويات
-              </h3>
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="font-bold text-base flex items-center gap-2">
+                  <i class="fa-solid fa-trophy text-warning"></i> الإنجازات
+                </h3>
+                <span class="text-xs text-secondary" id="achievementsCount">0/5</span>
+              </div>
               
               <div class="level-progress">
                 <div class="level-info">
                   <span id="currentLevelBadge"><span class="level-badge level-1">🥉 مبتدئ</span></span>
-                  <span class="text-secondary text-sm" id="nextLevelInfo">المستوى التالي: 🥈 محترف</span>
+                  <span class="text-secondary text-xs" id="nextLevelInfo">التالي: 🥈 محترف</span>
                 </div>
                 
-                <div class="points-display">
-                  <div class="points-value" id="userPoints">0</div>
-                  <div class="points-label">نقطة</div>
+                <div class="flex items-center gap-3">
+                  <div class="flex-1">
+                    <div class="progress-bar-container">
+                      <div class="progress-bar-fill" id="levelProgressBar" style="width: 0%"></div>
+                    </div>                  </div>
+                  <div class="text-right">
+                    <span class="text-accent font-bold text-sm" id="userPoints">0</span>
+                    <span class="text-secondary text-xs"> نقطة</span>
+                  </div>
                 </div>
-                
-                <div class="progress-bar-container">
-                  <div class="progress-bar-fill" id="levelProgressBar" style="width: 0%"></div>
-                </div>
-                
-                <p class="text-xs text-secondary text-center mt-2" id="levelProgressText">0 / 100 نقطة</p>
               </div>
               
-              <div id="achievementsList"></div>            </div>
+              <div id="achievementsList"></div>
+              
+              <button onclick="toggleAllAchievements()" class="show-all-btn" id="showAllBtn">
+                <i class="fa-solid fa-chevron-down" id="showAllIcon"></i>
+                <span id="showAllText">عرض جميع الإنجازات</span>
+              </button>
+            </div>
             
             <div class="grid grid-cols-2 gap-3 mb-4">
                 <div class="card !mb-0 !p-4 text-center"><p class="text-xs text-secondary">العائد اليومي</p><p class="text-lg font-bold text-accent">$<span id="dailyEarningsDisplay">0.00</span></p></div>
@@ -670,7 +1027,6 @@
                     <div><span class="block font-bold text-lg text-success" id="referralEarnings">$0</span>أرباح</div>
                 </div>
             </div>
-
             <div class="card">
                 <h3 class="font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-ticket text-accent"></i> استخدم كوبون</h3>
                 <div class="flex gap-2">
@@ -682,9 +1038,14 @@
             <div id="masterAdminPanel" class="hidden mt-4">
                 <button onclick="openAdminModal()" class="w-full btn-outline py-3 text-xs text-danger border-danger/30 hover:bg-danger/10">لوحة التحكم الإدارية</button>
             </div>
-            <button onclick="logout()" class="w-full py-3 mt-4 text-xs text-danger/70 hover:text-danger">تسجيل الخروج</button>
+            
+            <button onclick="logout()" class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>تسجيل الخروج</span>
+            </button>
         </div>
-                <div id="plansPage" class="page">
+        
+        <div id="plansPage" class="page">
             <div class="text-center mb-6 pt-2">
                 <h2 class="text-2xl font-bold text-accent mb-2">باقات الاستثمار الذكي</h2>
                 <p class="text-secondary text-sm">اختر خطتك • مدة الاشتراك: 6 أشهر فقط</p>
@@ -692,26 +1053,69 @@
             <div id="plansList" class="grid grid-cols-2 gap-3 pb-20"></div>
         </div>
         
+        <!-- === صفحة التعدين المحسّنة === -->
         <div id="miningPage" class="page">
-            <div class="card text-center w-full max-w-[340px] mx-auto py-10">
-                <i class="fa-solid fa-microchip text-6xl text-accent mb-6 animate-pulse"></i>
-                <h3 class="text-xl font-bold mb-2">التعدين اليومي</h3>
-                <div class="mining-status">
-                    <p class="text-secondary text-xs">العائد اليومي الكلي</p>
-                    <p class="text-3xl font-bold text-accent my-2">$<span id="miningDailyAmount">0.00</span></p>
-                    <p class="mining-click-info">الربح لكل نقرة: <span class="mining-per-click" id="miningPerClick">$0.00</span></p>
-                    <div class="mining-clicks-container">
-                        <div class="mining-click-dot"></div>
-                        <div class="mining-click-dot"></div>
-                        <div class="mining-click-dot"></div>
-                        <div class="mining-click-dot"></div>
-                        <div class="mining-click-dot"></div>
-                    </div>
-                    <p class="text-xs" id="miningStatus">النقرات المتبقية: 5/5</p>
+            <div class="mining-container">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-accent mb-2">⛏️ التعدين التفاعلي</h2>
+                    <p class="text-secondary text-sm">انقر لاستخراج البضائع الثمينة</p>
                 </div>
-                <button onclick="doMiningClick()" class="btn w-full mt-4" id="miningBtn">
-                    <i class="fa-solid fa-hand-pointer me-2"></i> انقر للتعدين
-                </button>
+
+                <!-- عرض البضاعة الحالية -->
+                <div class="mining-display">
+                    <div class="current-item" id="currentItemIcon">💎</div>
+                    <div class="item-name" id="currentItemName">ألماسة نادرة</div>
+                    <div class="item-value" id="currentItemValue">+$0.00</div>
+                    <p class="text-xs text-secondary mt-2" id="currentItemDesc">ألماسة عالية الجودة من أعمق المناجم</p>
+                </div>
+
+                <!-- إحصائيات التعدين -->
+                <div class="mining-stats">
+                    <div class="mining-stat-card">
+                        <div class="mining-stat-value" id="miningDailyAmount">$0.00</div>
+                        <div class="mining-stat-label">العائد اليومي</div>
+                    </div>
+                    <div class="mining-stat-card">
+                        <div class="mining-stat-value" id="miningPerClick">$0.00</div>                        <div class="mining-stat-label">لكل نقرة</div>
+                    </div>
+                </div>
+
+                <!-- نقاط التقدم -->
+                <div class="card">
+                    <div class="text-center mb-3">
+                        <p class="text-secondary text-sm mb-2">التقدم اليومي</p>
+                        <div class="mining-clicks-container" id="miningClicksContainer">
+                            <div class="mining-click-dot"></div>
+                            <div class="mining-click-dot"></div>
+                            <div class="mining-click-dot"></div>
+                            <div class="mining-click-dot"></div>
+                            <div class="mining-click-dot"></div>
+                        </div>
+                        <p class="text-xs text-secondary mt-2" id="miningStatus">النقرات المتبقية: 5/5</p>
+                    </div>
+
+                    <!-- زر التعدين -->
+                    <button onclick="doMiningClick()" class="mining-btn" id="miningBtn">
+                        <i class="fa-solid fa-hand-pointer"></i>
+                        <span>انقر للتعدين</span>
+                    </button>
+                </div>
+
+                <!-- مخزن البضائع -->
+                <div class="card mt-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold flex items-center gap-2">
+                            <i class="fa-solid fa-box-open text-accent"></i>
+                            مخزن البضائع
+                        </h3>
+                        <span class="text-xs text-secondary" id="inventoryCount">0 بضاعة</span>
+                    </div>
+                    <div class="inventory-grid" id="inventoryGrid">
+                        <div class="text-center text-secondary text-xs" style="grid-column: 1 / -1;">
+                            لا توجد بضائع بعد - ابدأ التعدين!
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -721,8 +1125,7 @@
                     <div class="card w-full">
                         <div class="text-center mb-6">
                             <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-green-500/10 flex justify-center items-center text-green-400 text-2xl border border-green-500/20"><i class="fa-solid fa-wallet"></i></div>
-                            <h3 class="text-xl font-bold mb-1">إيداع الأموال</h3>
-                            <p class="text-secondary text-xs">اتبع الخطوات التالية</p>
+                            <h3 class="text-xl font-bold mb-1">إيداع الأموال</h3>                            <p class="text-secondary text-xs">اتبع الخطوات التالية</p>
                         </div>
                         <div class="mb-6">
                             <div class="deposit-step"><div class="deposit-step-number">1</div><div class="flex-1"><p class="font-bold text-sm">انسخ عنوان المحفظة</p><p class="text-xs text-secondary">USDT (TRC20)</p></div></div>
@@ -733,7 +1136,8 @@
                             <p class="text-[10px] text-secondary mb-1"><i class="fa-solid fa-copy text-accent me-1"></i> محفظة USDT (TRC20) - اضغط للنسخ</p>
                             <p class="font-mono text-xs text-accent break-all select-all">TTmVnVwGtMm11BkxJA7LYitCgfTqoSN8dw</p>
                         </div>
-                        <div class="relative mb-4">                            <i class="fa-solid fa-dollar-sign absolute right-4 top-1/2 -translate-y-1/2 text-accent"></i>
+                        <div class="relative mb-4">
+                            <i class="fa-solid fa-dollar-sign absolute right-4 top-1/2 -translate-y-1/2 text-accent"></i>
                             <input type="number" id="depAmount" placeholder="المبلغ المرسل ($)" class="input-style !pr-10" min="10">
                         </div>
                         <button onclick="submitDepositRequest()" class="btn w-full"><i class="fa-solid fa-paper-plane me-1"></i> إرسال طلب الإيداع</button>
@@ -770,8 +1174,7 @@
                         <div class="mb-4">
                             <label class="text-xs text-secondary mb-1 block">المبلغ المطلوب</label>
                             <input type="number" id="witAmount" placeholder="$0.00" class="input-style" oninput="calculateCommission()">
-                        </div>
-                        <div id="commissionDisplay" class="hidden bg-white/5 rounded-xl p-3 mb-4 text-xs border border-white/5">
+                        </div>                        <div id="commissionDisplay" class="hidden bg-white/5 rounded-xl p-3 mb-4 text-xs border border-white/5">
                             <div class="flex justify-between mb-1"><span>المبلغ:</span> <span id="withdrawAmountDisplay">$0</span></div>
                             <div class="flex justify-between mb-1 text-danger"><span>- العمولة (10%):</span> <span id="commissionAmountDisplay">$0</span></div>
                             <div class="flex justify-between font-bold text-success border-t border-white/10 pt-1 mt-1"><span>= يصلك:</span> <span id="receiveAmountDisplay">$0</span></div>
@@ -782,7 +1185,8 @@
                         </div>
                     </div>
                     <div class="card w-full">
-                        <h4 class="text-sm font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-clock-rotate-left text-secondary"></i> سجل سحوباتي</h4>                        <div id="userWithdrawalsList" class="coupon-list" style="max-height: 250px;"><p class="text-center text-secondary text-xs">لا يوجد</p></div>
+                        <h4 class="text-sm font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-clock-rotate-left text-secondary"></i> سجل سحوباتي</h4>
+                        <div id="userWithdrawalsList" class="coupon-list" style="max-height: 250px;"><p class="text-center text-secondary text-xs">لا يوجد</p></div>
                     </div>
                 </div>
             </div>
@@ -819,8 +1223,7 @@
             </div>
         </div>
         
-        <nav id="bottomNav">
-            <div class="nav-item active" onclick="tabNav(this, 'profilePage')"><i class="fa-solid fa-user-shield"></i><br>الرئيسية</div>
+        <nav id="bottomNav">            <div class="nav-item active" onclick="tabNav(this, 'profilePage')"><i class="fa-solid fa-user-shield"></i><br>الرئيسية</div>
             <div class="nav-item" onclick="tabNav(this, 'plansPage')"><i class="fa-solid fa-gem"></i><br>الباقات</div>
             <div class="nav-item" onclick="tabNav(this, 'miningPage')"><i class="fa-solid fa-bolt-lightning"></i><br>التعدين</div>
             <div class="nav-item" onclick="tabNav(this, 'depositPage')"><i class="fa-solid fa-circle-plus"></i><br>إيداع</div>
@@ -831,7 +1234,8 @@
 
     <script>
         const firebaseConfig = {
-          apiKey: "AIzaSyBlag2FX5riHH8EuS8f3Z-hxfUS4wWR_LI",          authDomain: "e-tic-ab4f4.firebaseapp.com",
+          apiKey: "AIzaSyBlag2FX5riHH8EuS8f3Z-hxfUS4wWR_LI",
+          authDomain: "e-tic-ab4f4.firebaseapp.com",
           databaseURL: "https://e-tic-ab4f4-default-rtdb.firebaseio.com",
           projectId: "e-tic-ab4f4",
           storageBucket: "e-tic-ab4f4.firebasestorage.app",
@@ -862,54 +1266,83 @@
             {id:10,n:"وردي",p:50000,d:4200.0,desc:"الأسطورة. قوة غير محدودة."}
         ];
         
+        const MINING_ITEMS = [
+            { icon: '💎', name: 'ألماسة نادرة', desc: 'ألماسة عالية الجودة من أعمق المناجم' },
+            { icon: '💰', name: 'كنز ذهبي', desc: 'صندوق مليء بالعملات الذهبية القديمة' },
+            { icon: '📱', name: 'هاتف ذكي', desc: 'أحدث طراز من الهواتف الذكية' },
+            { icon: '💻', name: 'لابتوب متطور', desc: 'لابتوب بمعالج فائق السرعة' },
+            { icon: '⌚', name: 'ساعة فاخرة', desc: 'ساعة سويسرية الصنع' },
+            { icon: '🎧', name: 'سماعات لاسلكية', desc: 'سماعات بتقنية إلغاء الضوضاء' },            { icon: '📷', name: 'كاميرا احترافية', desc: 'كاميرا بدقة 4K عالية الوضوح' },
+            { icon: '🎮', name: 'وحدة ألعاب', desc: 'أحدث وحدة ألعاب بتقنية الواقع الافتراضي' },
+            { icon: '💍', name: 'خاتم مرصع', desc: 'خاتم بلاتيني مرصع بالأحجار الكريمة' },
+            { icon: '🏆', name: 'كأس البطولة', desc: 'كأس ذهبية خالصة' },
+            { icon: '🎁', name: 'هدية مفاجأة', desc: 'صندوق هدايا غامض مليء بالمفاجآت' },
+            { icon: '🚗', name: 'سيارة فاخرة', desc: 'نموذج مصغر لسيارة رياضية' },
+            { icon: '✈️', name: 'تذكرة سفر', desc: 'تذكرة سفر حول العالم' },
+            { icon: '🏠', name: 'عقار استثماري', desc: 'شهادة ملكية عقارية' },
+            { icon: '🎨', name: 'لوحة فنية', desc: 'لوحة نادرة لفنان مشهور' },
+            { icon: '📚', name: 'مكتبة علمية', desc: 'مجموعة كتب نادرة وقيمة' },
+            { icon: '🔬', name: 'معدات علمية', desc: 'ميكروسكوب إلكتروني متطور' },
+            { icon: '🎵', name: 'آلة موسيقية', desc: 'بيانو غراند فاخر' },
+            { icon: '🌟', name: 'نجمة متألقة', desc: 'نجمة مشعة من الفضاء الخارجي' },
+            { icon: '🔮', name: 'كرة بلورية', desc: 'كرة سحرية تكشف المستقبل' }
+        ];
+        
         let userData = null;
         let selectedPlanForPurchase = null;
         let notificationsListener = null;
+        let notificationsRef = null;
         let deferredPrompt = null;
+        let showAllAchievements = false;
+        let currentItem = null;
+        let userInventory = {};
 
-        // === نظام الإنجازات ===
         const ACHIEVEMENTS = [
-  {
-    id: 'first_mining',
-    title: '🌟 أول تعدين',
-    desc: 'قم بأول نقرة تعدين',
-    reward: 0.02,      // تم التعديل: 10 نقاط ÷ 500
-    points: 10,
-    condition: (user) => (user.totalEarned || 0) > 0
-  },
-  {
-    id: 'first_investor',
-    title: '💎 مستثمر',
-    desc: 'اشترِ أول باقة',
-    reward: 0.10,      // تم التعديل: 50 نقطة ÷ 500
-    points: 50,
-    condition: (user) => (user.planId || 0) > 0
-  },
-  {
-    id: 'active_referrer',
-    title: '👥 محيل نشط',
-    desc: 'ادعُ 5 أشخاص',
-    reward: 0.40,      // تم التعديل: 200 نقطة ÷ 500
-    points: 200,
-    condition: (user) => (user.referrals || 0) >= 5
-  },
-  {
-    id: 'committed',
-    title: '🔥 ملتزم',
-    desc: '10 أيام تعدين متتالية',
-    reward: 1.00,      // تم التعديل: 500 نقطة ÷ 500
-    points: 500,
-    condition: (user) => (user.consecutiveMiningDays || 0) >= 10
-  },
-  {
-    id: 'elite',
-    title: '🏆 نخبة',
-    desc: 'الوصول للمستوى 5',
-    reward: 2.00,      // تم التعديل: 1000 نقطة ÷ 500
-    points: 1000,
-    condition: (user) => calculateLevel(user.points || 0) >= 5
-  }
-];
+          {
+            id: 'first_mining',
+            title: '🌟 أول تعدين',
+            desc: 'قم بأول نقرة تعدين',
+            reward: 0.02,
+            points: 10,
+            condition: (user) => (user.totalEarned || 0) > 0,
+            hidden: true
+          },
+          {
+            id: 'first_investor',
+            title: '💎 مستثمر',
+            desc: 'اشترِ أول باقة',
+            reward: 0.10,
+            points: 50,
+            condition: (user) => (user.planId || 0) > 0,
+            hidden: true
+          },
+          {
+            id: 'active_referrer',
+            title: '👥 محيل نشط',
+            desc: 'ادعُ 5 أشخاص',
+            reward: 0.40,
+            points: 200,            condition: (user) => (user.referrals || 0) >= 5,
+            hidden: false
+          },
+          {
+            id: 'committed',
+            title: '🔥 ملتزم',
+            desc: '10 أيام تعدين متتالية',
+            reward: 1.00,
+            points: 500,
+            condition: (user) => (user.consecutiveMiningDays || 0) >= 10,
+            hidden: false
+          },
+          {
+            id: 'elite',
+            title: '🏆 نخبة',
+            desc: 'الوصول للمستوى 5',
+            reward: 2.00,
+            points: 1000,
+            condition: (user) => calculateLevel(user.points || 0) >= 5,
+            hidden: false
+          }
+        ];
 
         const LEVELS = [
           { level: 1, name: 'مبتدئ', icon: '🥉', minPoints: 0, maxPoints: 100 },
@@ -930,9 +1363,26 @@
           const level = calculateLevel(points);
           return LEVELS.find(l => l.level === level);
         }
+
         function getNextLevelInfo(points) {
           const currentLevel = calculateLevel(points);
           return LEVELS.find(l => l.level === currentLevel + 1);
+        }
+
+        function toggleAllAchievements() {
+          showAllAchievements = !showAllAchievements;          const btn = document.getElementById('showAllBtn');
+          const text = document.getElementById('showAllText');
+          const icon = document.getElementById('showAllIcon');
+          
+          if (showAllAchievements) {
+            btn.classList.add('expanded');
+            text.textContent = 'إخفاء الإنجازات الإضافية';
+          } else {
+            btn.classList.remove('expanded');
+            text.textContent = 'عرض جميع الإنجازات';
+          }
+          
+          loadAchievements();
         }
 
         async function loadAchievements() {
@@ -943,13 +1393,20 @@
           
           const listEl = document.getElementById('achievementsList');
           let html = '';
+          let unlockedCount = 0;
           
-          ACHIEVEMENTS.forEach(ach => {
+          const visibleAchievements = ACHIEVEMENTS.filter(ach => {
+            if (showAllAchievements) return true;
+            return !ach.hidden;
+          });
+          
+          visibleAchievements.forEach(ach => {
             const unlocked = userAchievements[ach.id]?.unlocked || false;
-            const unlockedAt = userAchievements[ach.id]?.unlockedAt;
+            
+            if (unlocked) unlockedCount++;
             
             html += `
-              <div class="achievement-card ${unlocked ? 'unlocked' : 'locked'}">
+              <div class="achievement-card ${unlocked ? 'unlocked' : 'locked'}" onclick="showAchievementDetail('${ach.id}')">
                 <div class="achievement-icon ${unlocked ? 'unlocked' : 'locked'}">
                   ${unlocked ? '✓' : '🔒'}
                 </div>
@@ -957,41 +1414,76 @@
                   <div class="achievement-title">${ach.title}</div>
                   <div class="achievement-desc">${ach.desc}</div>
                   <div class="achievement-reward">
-                    ${unlocked ? '✓ مفتوح' : `+$${ach.reward} • +${ach.points} نقطة`}
+                    ${unlocked ? '✓ مفتوح' : `+$${ach.reward.toFixed(2)} • +${ach.points} نقطة`}
                   </div>
-                  ${unlocked && unlockedAt ? `<div class="text-xs text-secondary mt-1">فُتح: ${new Date(unlockedAt).toLocaleDateString('ar-EG')}</div>` : ''}
                 </div>
               </div>
             `;
-          });
-          
+          });          
           listEl.innerHTML = html;
+          document.getElementById('achievementsCount').textContent = `${unlockedCount}/5`;
           updateLevelDisplay();
+        }
+
+        function showAchievementDetail(achievementId) {
+          const ach = ACHIEVEMENTS.find(a => a.id === achievementId);
+          if (!ach) return;
+          
+          const snap = db.ref('achievements/' + userData.id + '/' + achievementId);
+          snap.once('value').then(s => {
+            const data = s.val() || {};
+            const unlocked = data.unlocked || false;
+            
+            document.getElementById('detailAchievementIcon').textContent = unlocked ? '✓' : '🔒';
+            document.getElementById('detailAchievementIcon').className = `achievement-icon ${unlocked ? 'unlocked' : 'locked'}`;
+            document.getElementById('detailAchievementTitle').textContent = ach.title;
+            document.getElementById('detailAchievementDesc').textContent = ach.desc;
+            document.getElementById('detailAchievementReward').textContent = `$${ach.reward.toFixed(2)}`;
+            document.getElementById('detailAchievementPoints').textContent = ach.points;
+            
+            const dateRow = document.getElementById('detailAchievementDateRow');
+            if (unlocked && data.unlockedAt) {
+              dateRow.style.display = 'flex';
+              document.getElementById('detailAchievementDate').textContent = new Date(data.unlockedAt).toLocaleDateString('ar-EG');
+            } else {
+              dateRow.style.display = 'none';
+            }
+            
+            const statusEl = document.getElementById('detailAchievementStatus');
+            if (unlocked) {
+              statusEl.innerHTML = '<span class="text-success font-bold">✓ تم فتح هذا الإنجاز</span>';
+            } else {
+              statusEl.innerHTML = '<span class="text-secondary">🔒 لم يتم فتح هذا الإنجاز بعد</span>';
+            }
+            
+            document.getElementById('achievementDetailModal').classList.add('show');
+          });
+        }
+
+        function closeAchievementDetail() {
+          document.getElementById('achievementDetailModal').classList.remove('show');
         }
 
         function updateLevelDisplay() {
           if (!userData) return;
           
           const points = userData.points || 0;
-          const currentLevel = getCurrentLevelInfo(points);
-          const nextLevel = getNextLevelInfo(points);
+          const currentLevel = getCurrentLevelInfo(points);          const nextLevel = getNextLevelInfo(points);
           
           document.getElementById('currentLevelBadge').innerHTML = 
             `<span class="level-badge level-${currentLevel.level}">${currentLevel.icon} ${currentLevel.name}</span>`;
           
-          document.getElementById('userPoints').innerText = points;          
+          document.getElementById('userPoints').innerText = points;
+          
           if (nextLevel) {
             document.getElementById('nextLevelInfo').innerText = 
-              `المستوى التالي: ${nextLevel.icon} ${nextLevel.name}`;
+              `التالي: ${nextLevel.icon} ${nextLevel.name}`;
             
             const progress = ((points - currentLevel.minPoints) / (currentLevel.maxPoints - currentLevel.minPoints)) * 100;
             document.getElementById('levelProgressBar').style.width = `${Math.min(progress, 100)}%`;
-            document.getElementById('levelProgressText').innerText = 
-              `${points} / ${currentLevel.maxPoints} نقطة`;
           } else {
-            document.getElementById('nextLevelInfo').innerText = '🎉 وصلت لأعلى مستوى!';
+            document.getElementById('nextLevelInfo').innerText = '🎉 أعلى مستوى!';
             document.getElementById('levelProgressBar').style.width = '100%';
-            document.getElementById('levelProgressText').innerText = `${points} نقطة`;
           }
         }
 
@@ -1025,15 +1517,15 @@
             userData.balance += totalNewRewards;
             
             await db.ref('users/' + userData.id).update({
-              points: userData.points,
-              balance: userData.balance
+              points: userData.points,              balance: userData.balance
             });
-                        for (const ach of newAchievements) {
+            
+            for (const ach of newAchievements) {
               showAchievementNotification(ach);
               await createNotification(
                 userData.id,
                 `🏆 إنجاز جديد: ${ach.title}`,
-                `مبروك! حصلت على $${ach.reward} و ${ach.points} نقطة`,
+                `مبروك! حصلت على $${ach.reward.toFixed(2)} و ${ach.points} نقطة`,
                 'success'
               );
             }
@@ -1051,7 +1543,7 @@
               <div class="achievement-notification-icon">🏆</div>
               <div class="achievement-notification-text">
                 <h4>إنجاز جديد!</h4>
-                <p>${achievement.title} - +$${achievement.reward}</p>
+                <p>${achievement.title} - +$${achievement.reward.toFixed(2)}</p>
               </div>
             </div>
           `;
@@ -1064,12 +1556,66 @@
           }, 5000);
         }
 
+        function getRandomMiningItem() {
+          return MINING_ITEMS[Math.floor(Math.random() * MINING_ITEMS.length)];
+        }
+
+        function updateCurrentItemDisplay() {
+          if (!currentItem) {
+            currentItem = getRandomMiningItem();
+          }
+          
+          const perClick = (userData?.daily || 0) / MINING_CLICKS_PER_DAY;
+                    document.getElementById('currentItemIcon').textContent = currentItem.icon;
+          document.getElementById('currentItemName').textContent = currentItem.name;
+          document.getElementById('currentItemValue').textContent = `+$${perClick.toFixed(2)}`;
+          document.getElementById('currentItemDesc').textContent = currentItem.desc;
+        }
+
+        function updateInventoryDisplay() {
+          const grid = document.getElementById('inventoryGrid');
+          const items = Object.entries(userInventory);
+          
+          if (items.length === 0) {
+            grid.innerHTML = '<div class="text-center text-secondary text-xs" style="grid-column: 1 / -1;">لا توجد بضائع بعد - ابدأ التعدين!</div>';
+            document.getElementById('inventoryCount').textContent = '0 بضاعة';
+            return;
+          }
+          
+          let html = '';
+          items.forEach(([icon, count]) => {
+            const item = MINING_ITEMS.find(i => i.icon === icon);
+            html += `
+              <div class="inventory-item" title="${item ? item.name : 'بضاعة'}">
+                <div class="inventory-item-icon">${icon}</div>
+                <div class="inventory-item-count">×${count}</div>
+              </div>
+            `;
+          });
+          
+          grid.innerHTML = html;
+          document.getElementById('inventoryCount').textContent = `${items.length} بضاعة`;
+        }
+
+        function addToInventory(item) {
+          if (!userInventory[item.icon]) {
+            userInventory[item.icon] = 0;
+          }
+          userInventory[item.icon]++;
+          
+          // حفظ في Firebase
+          if (userData?.id) {
+            db.ref('users/' + userData.id + '/inventory').set(userInventory);
+          }
+          
+          updateInventoryDisplay();
+        }
+
         function hashPassword(password) {
             let hash = 0;
             const str = password + "E-TIC-SALT-2026";
             for (let i = 0; i < str.length; i++) {
-                const char = str.charCodeAt(i);
-                hash = ((hash << 5) - hash) + char;
+                const char = str.charCodeAt(i);                hash = ((hash << 5) - hash) + char;
                 hash = hash & hash;
             }
             return 'h_' + Math.abs(hash).toString(36) + '_' + btoa(password).substring(0, 12);
@@ -1077,7 +1623,8 @@
 
         function initParticles() {
             const c = document.getElementById('particles');
-            for(let i=0; i<20; i++) {                const p = document.createElement('div'); p.className='particle';
+            for(let i=0; i<20; i++) {
+                const p = document.createElement('div'); p.className='particle';
                 p.style.width = Math.random()*6+2+'px'; p.style.height=p.style.width;
                 p.style.left = Math.random()*100+'%'; p.style.animationDelay=Math.random()*10+'s';
                 p.style.animationDuration=Math.random()*10+10+'s'; c.appendChild(p);
@@ -1117,8 +1664,7 @@
                         db.ref('users').orderByChild('email').equalTo(email).once('value'),
                         new Promise((_, reject) => setTimeout(() => reject(new Error('TIMEOUT')), 10000))
                     ]);
-                    
-                    const users = snap.val();
+                                        const users = snap.val();
                     if(users) {
                         const uid = Object.keys(users)[0];
                         foundUid = uid;
@@ -1126,7 +1672,8 @@
                     }
                 } catch(fastErr) {
                     try {
-                        const allSnap = await Promise.race([                            db.ref('users').once('value'),
+                        const allSnap = await Promise.race([
+                            db.ref('users').once('value'),
                             new Promise((_, reject) => setTimeout(() => reject(new Error('FALLBACK TIMEOUT')), 15000))
                         ]);
                         
@@ -1166,8 +1713,7 @@
                 }
                 
                 document.getElementById('authContainer').classList.add('hidden');
-                document.getElementById('mainApp').style.display = 'block';
-                document.getElementById('bottomNav').style.display = 'flex';
+                document.getElementById('mainApp').style.display = 'block';                document.getElementById('bottomNav').style.display = 'flex';
                 
                 initPlans();
                 updateUI();
@@ -1175,7 +1721,8 @@
                 checkSmartNotifications();
                 checkNotificationPermission();
                 loadAchievements();
-                showToast(`مرحباً ${userData.name} 👋`, 'success');                
+                showToast(`مرحباً ${userData.name} 👋`, 'success');
+                
             } catch(err) {
                 console.error('Login error:', err);
                 showToast(err.message || "حدث خطأ في تسجيل الدخول", 'error');
@@ -1215,8 +1762,7 @@
                     const users = snap.val();
                     if(users) foundUid = Object.keys(users)[0];
                 } catch(e) {
-                    const allSnap = await db.ref('users').once('value');
-                    const allUsers = allSnap.val();
+                    const allSnap = await db.ref('users').once('value');                    const allUsers = allSnap.val();
                     if(allUsers) {
                         for(const uid in allUsers) {
                             if(allUsers[uid].email && allUsers[uid].email.toLowerCase() === email) {
@@ -1224,7 +1770,8 @@
                                 break;
                             }
                         }
-                    }                }
+                    }
+                }
                 
                 if(!foundUid) throw new Error("البريد الإلكتروني غير مسجل");
                 
@@ -1264,8 +1811,7 @@
                     emailExists = exists.exists();
                 } catch(e) {
                     const allSnap = await db.ref('users').once('value');
-                    const allUsers = allSnap.val();
-                    if(allUsers) {
+                    const allUsers = allSnap.val();                    if(allUsers) {
                         for(const uid in allUsers) {
                             if(allUsers[uid].email && allUsers[uid].email.toLowerCase() === email) {
                                 emailExists = true;
@@ -1273,7 +1819,8 @@
                             }
                         }
                     }
-                }                
+                }
+                
                 if(emailExists) throw new Error("البريد الإلكتروني مسجل مسبقاً");
                 
                 const uid = 'U' + Date.now().toString().slice(-6) + Math.floor(Math.random() * 1000);
@@ -1283,6 +1830,7 @@
                     balance: 0, daily: 0, plan: "لا توجد باقة", planId: 0,
                     lastMine: "", isFrozen: false, referrals: 0, totalEarned: 0,
                     miningClicks: 0, lastMiningDate: "", points: 0, consecutiveMiningDays: 0,
+                    inventory: {},
                     createdAt: firebase.database.ServerValue.TIMESTAMP, planExpiresAt: 0
                 };
                 
@@ -1312,8 +1860,7 @@
                 updateUI();
                 startNotificationsListener();
                 checkNotificationPermission();
-                loadAchievements();
-                showToast("تم إنشاء الحساب بنجاح! 🎉", 'success');
+                loadAchievements();                showToast("تم إنشاء الحساب بنجاح! 🎉", 'success');
                 
             } catch(err) {
                 showToast(err.message || "حدث خطأ", 'error');
@@ -1322,6 +1869,7 @@
                 btn.disabled = false;
             }
         }
+
         async function createNotification(userId, title, message, type = 'info') {
             try {
                 const notifId = db.ref('notifications/' + userId).push().key;
@@ -1348,30 +1896,35 @@
         }
 
         function startNotificationsListener() {
-            if (!userData?.id) return;
-            if (notificationsListener) notificationsListener();
+          if (!userData?.id) return;
+          
+          if (notificationsRef && notificationsListener) {
+            notificationsRef.off('value', notificationsListener);
+          }
+          
+          notificationsRef = db.ref('notifications/' + userData.id);
+          
+          notificationsListener = notificationsRef.on('value', snap => {
+            const notifications = snap.val() || {};
+            const arr = Object.values(notifications);
+            const unreadCount = arr.filter(n => !n.read).length;
             
-            notificationsListener = db.ref('notifications/' + userData.id).on('value', snap => {
-                const notifications = snap.val() || {};
-                const arr = Object.values(notifications);
-                const unreadCount = arr.filter(n => !n.read).length;
-                
-                const badge = document.getElementById('notificationBadge');
-                if (unreadCount > 0) {
-                    badge.innerText = unreadCount > 99 ? '99+' : unreadCount;
-                    badge.classList.remove('hidden');
-                } else {
-                    badge.classList.add('hidden');
-                }
-                
-                renderNotifications(arr);
-            });
+            const badge = document.getElementById('notificationBadge');            if (unreadCount > 0) {
+                badge.innerText = unreadCount > 99 ? '99+' : unreadCount;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+            
+            renderNotifications(arr);
+          });
         }
 
         function renderNotifications(notifications) {
             const listEl = document.getElementById('notificationList');
             if (!notifications || notifications.length === 0) {
-                listEl.innerHTML = `<div class="notification-empty"><i class="fa-solid fa-bell-slash"></i><p>لا توجد إشعارات</p></div>`;                return;
+                listEl.innerHTML = `<div class="notification-empty"><i class="fa-solid fa-bell-slash"></i><p>لا توجد إشعارات</p></div>`;
+                return;
             }
             
             notifications.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
@@ -1405,8 +1958,7 @@
             if (hours < 24) return `منذ ${hours} ساعة`;
             const days = Math.floor(hours / 24);
             if (days < 7) return `منذ ${days} يوم`;
-            return new Date(timestamp).toLocaleDateString('ar-EG');
-        }
+            return new Date(timestamp).toLocaleDateString('ar-EG');        }
 
         async function markNotificationRead(notifId) {
             if (!userData?.id) return;
@@ -1420,7 +1972,8 @@
             try {
                 const snap = await db.ref('notifications/' + userData.id).once('value');
                 const notifs = snap.val() || {};
-                const updates = {};                Object.keys(notifs).forEach(id => { updates[id + '/read'] = true; });
+                const updates = {};
+                Object.keys(notifs).forEach(id => { updates[id + '/read'] = true; });
                 if (Object.keys(updates).length > 0) {
                     await db.ref('notifications/' + userData.id).update(updates);
                 }
@@ -1454,8 +2007,7 @@
                             'warning'
                         );
                         localStorage.setItem('etic_mining_reminder_' + userData.id + '_' + today, '1');
-                    }
-                }
+                    }                }
                 
                 if (userData.planExpiresAt) {
                     const daysLeft = Math.ceil((userData.planExpiresAt - Date.now()) / 86400000);
@@ -1469,7 +2021,8 @@
                             'warning'
                         );
                         localStorage.setItem(expiryKey, '1');
-                    }                }
+                    }
+                }
             }
             
             localStorage.setItem('etic_last_smart_check_' + userData.id, today);
@@ -1503,8 +2056,7 @@
 
         function checkNotificationPermission() {
             if (!('Notification' in window)) return;
-            const card = document.getElementById('enableNotifCard');
-            if (Notification.permission === 'default') {
+            const card = document.getElementById('enableNotifCard');            if (Notification.permission === 'default') {
                 card.classList.remove('hidden');
             } else {
                 card.classList.add('hidden');
@@ -1518,7 +2070,8 @@
                     self.addEventListener('activate', e => e.waitUntil(clients.claim()));
                     self.addEventListener('fetch', e => {
                         e.respondWith(
-                            caches.match(e.request).then(r => r || fetch(e.request).catch(() => new Response('Offline')))                        );
+                            caches.match(e.request).then(r => r || fetch(e.request).catch(() => new Response('Offline')))
+                        );
                     });
                 `;
                 const blob = new Blob([swCode], { type: 'application/javascript' });
@@ -1527,7 +2080,7 @@
             }
         }
 
-        window.addEventListener('beforeinstallprompt', (e) => {
+        window.addEventListener('beforeinstallPrompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
             if (!localStorage.getItem('etic_pwa_dismissed')) {
@@ -1552,7 +2105,6 @@
             document.getElementById('pwaBanner').classList.remove('show');
             localStorage.setItem('etic_pwa_dismissed', '1');
         }
-
         function tabNav(el, id) {
             document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
             el.classList.add('active');
@@ -1562,12 +2114,17 @@
             window.scrollTo(0, 0);
             if(id === 'depositPage') setTimeout(loadUserDeposits, 100);
             if(id === 'withdrawPage') setTimeout(loadUserWithdrawals, 100);
+            if(id === 'miningPage') {
+                updateCurrentItemDisplay();
+                updateInventoryDisplay();
+            }
         }
 
         function openPlanModal(planId) {
             const plan = plans.find(p => p.id === planId);
             if(!plan) return;
-            selectedPlanForPurchase = plan;            const totalReturn = plan.d * PLAN_DURATION_DAYS;
+            selectedPlanForPurchase = plan;
+            const totalReturn = plan.d * PLAN_DURATION_DAYS;
             const netProfit = totalReturn - plan.p;
             const monthlyReturn = plan.d * 30;
             const monthlyROI = ((monthlyReturn / plan.p) * 100).toFixed(1);
@@ -1597,8 +2154,7 @@
         }
         function closePlanModal() {
             document.getElementById('planDetailsModal').classList.remove('show');
-            document.body.style.overflow = '';
-            selectedPlanForPurchase = null;
+            document.body.style.overflow = '';            selectedPlanForPurchase = null;
         }
         function confirmBuyFromModal() {
             if(!selectedPlanForPurchase) return;
@@ -1612,11 +2168,11 @@
             
             const today = new Date().toDateString();
             if(userData.lastMiningDate !== today) {
-                // حساب الأيام المتتالية
                 const yesterday = new Date();
                 yesterday.setDate(yesterday.getDate() - 1);
                 if (userData.lastMiningDate === yesterday.toDateString()) {
-                    userData.consecutiveMiningDays = (userData.consecutiveMiningDays || 0) + 1;                } else if (userData.lastMiningDate !== today) {
+                    userData.consecutiveMiningDays = (userData.consecutiveMiningDays || 0) + 1;
+                } else if (userData.lastMiningDate !== today) {
                     userData.consecutiveMiningDays = 1;
                 }
                 userData.miningClicks = 0;
@@ -1632,15 +2188,23 @@
             userData.miningClicks = (userData.miningClicks || 0) + 1;
             userData.totalEarned = (userData.totalEarned || 0) + perClick;
             
+            // اختيار بضاعة عشوائية جديدة
+            const randomItem = getRandomMiningItem();
+            currentItem = randomItem;
+            
+            // إضافة للمخزن
+            addToInventory(randomItem);
+            
             saveUserData();
             updateUI();
+            updateCurrentItemDisplay();
+            
+            showToast(`✅ حصلت على ${randomItem.icon} ${randomItem.name} - +$${perClick.toFixed(2)}`, 'success');
             
             if(userData.miningClicks >= MINING_CLICKS_PER_DAY) {
-                showToast(`🎉 تم استخراج كامل العائد اليومي! +$${userData.daily.toFixed(2)}`, 'success');
-                // فحص الإنجازات بعد إكمال التعدين اليومي
-                setTimeout(checkAchievements, 500);
-            } else {
-                showToast(`+$${perClick.toFixed(2)} | النقرة ${userData.miningClicks}/5`, 'success');
+                setTimeout(() => {
+                    showToast(`🎉 تم استخراج كامل العائد اليومي! +$${userData.daily.toFixed(2)}`, 'success');                    setTimeout(checkAchievements, 500);
+                }, 1000);
             }
         }
 
@@ -1665,7 +2229,8 @@
             if(!userData?.id) return;
             const listEl = document.getElementById('userDepositsList');
             listEl.innerHTML = '<p class="text-center text-secondary text-xs">جاري التحميل...</p>';
-            try {                const snap = await db.ref('depositRequests').orderByChild('userId').equalTo(userData.id).limitToLast(10).once('value');
+            try {
+                const snap = await db.ref('depositRequests').orderByChild('userId').equalTo(userData.id).limitToLast(10).once('value');
                 const deposits = snap.val();
                 if(!deposits) { listEl.innerHTML = '<p class="text-center text-secondary text-xs">لا يوجد إيداعات</p>'; return; }
                 let html = '';
@@ -1687,8 +2252,7 @@
             
             if(!address || address.length < 30) return showToast("عنوان محفظة غير صحيح", 'error');
             if(!amount || amount < 5) return showToast("الحد الأدنى للسحب هو $5", 'error');
-            if(amount > userData.balance) return showToast("رصيد غير كافي", 'error');
-            
+            if(amount > userData.balance) return showToast("رصيد غير كافي", 'error');            
             const now = Date.now();
             const WITHDRAW_COOLDOWN_DAYS = 7;
             if(userData.lastWithdraw && (now - userData.lastWithdraw < WITHDRAW_COOLDOWN_DAYS * 86400000)) {
@@ -1714,7 +2278,8 @@
                 
                 await createNotification(userData.id, 'تم استلام طلب السحب 💸', `طلب سحب $${amount} قيد المراجعة.`, 'info');
                 
-                showToast("تم إرسال طلب السحب بنجاح ✅", 'success');                loadUserWithdrawals();
+                showToast("تم إرسال طلب السحب بنجاح ✅", 'success');
+                loadUserWithdrawals();
             } catch(e) { showToast("خطأ في إرسال الطلب", 'error'); }
         }
 
@@ -1736,8 +2301,7 @@
                     html += `<div class="deposit-item flex-col items-start gap-1">
                         <div class="flex justify-between w-full">
                             <p class="font-bold text-accent">$${w.amount}</p>
-                            <span class="deposit-status ${statusClass}">${statusText}</span>
-                        </div>
+                            <span class="deposit-status ${statusClass}">${statusText}</span>                        </div>
                         <p class="text-[10px] text-secondary">يصلك: $${w.receiveAmount?.toFixed(2) || 0}</p>
                         <p class="text-[10px] text-secondary">${date}</p>
                     </div>`;
@@ -1763,7 +2327,8 @@
                     html += `<div class="deposit-item flex-col items-start gap-2">
                         <div class="flex justify-between w-full"><div><p class="font-bold text-accent text-sm">${d.userName}</p><p class="text-[10px] text-secondary">UID: ${d.userId} • ${date}</p></div><p class="font-bold text-lg text-success">$${d.amount}</p></div>
                         <div class="flex gap-2 w-full mt-2">
-                            <button onclick="processDeposit('${d.id}', 'approved')" class="btn-success flex-1 text-xs py-2 !m-0 !rounded-lg"><i class="fa-solid fa-check"></i> موافقة</button>                            <button onclick="processDeposit('${d.id}', 'rejected')" class="btn-danger flex-1 text-xs py-2 !m-0 !rounded-lg"><i class="fa-solid fa-times"></i> رفض</button>
+                            <button onclick="processDeposit('${d.id}', 'approved')" class="btn-success flex-1 text-xs py-2 !m-0 !rounded-lg"><i class="fa-solid fa-check"></i> موافقة</button>
+                            <button onclick="processDeposit('${d.id}', 'rejected')" class="btn-danger flex-1 text-xs py-2 !m-0 !rounded-lg"><i class="fa-solid fa-times"></i> رفض</button>
                         </div>
                     </div>`;
                 });
@@ -1785,8 +2350,7 @@
                 
                 if(newStatus === 'approved') {
                     await db.ref('users/' + deposit.userId + '/balance').transaction(b => (b || 0) + deposit.amount);
-                    await createNotification(deposit.userId, 'تم اعتماد الإيداع ✅', `تمت إضافة $${deposit.amount} إلى رصيدك.`, 'success');
-                    showToast(`تمت الموافقة وإضافة $${deposit.amount} ✅`, 'success');
+                    await createNotification(deposit.userId, 'تم اعتماد الإيداع ✅', `تمت إضافة $${deposit.amount} إلى رصيدك.`, 'success');                    showToast(`تمت الموافقة وإضافة $${deposit.amount} ✅`, 'success');
                 } else {
                     await createNotification(deposit.userId, 'تم رفض الإيداع ❌', `تم رفض طلب إيداع $${deposit.amount}.`, 'danger');
                     showToast("تم رفض الطلب ❌", 'success');
@@ -1812,7 +2376,8 @@
                     html += `<div class="deposit-item flex-col items-start gap-2">
                         <div class="flex justify-between w-full">
                             <div>
-                                <p class="font-bold text-accent text-sm">${w.userName}</p>                                <p class="text-[10px] text-secondary">UID: ${w.userId} • ${date}</p>
+                                <p class="font-bold text-accent text-sm">${w.userName}</p>
+                                <p class="text-[10px] text-secondary">UID: ${w.userId} • ${date}</p>
                                 <p class="text-[10px] text-secondary font-mono ltr">${w.walletAddress?.substring(0, 15)}...</p>
                             </div>
                             <div class="text-left">
@@ -1834,8 +2399,7 @@
             if(userData?.email !== MASTER_ADMIN) return;
             if(!confirm(`هل أنت متأكد؟`)) return;
             try {
-                const snap = await db.ref('withdrawRequests/' + withdrawalId).once('value');
-                const withdrawal = snap.val();
+                const snap = await db.ref('withdrawRequests/' + withdrawalId).once('value');                const withdrawal = snap.val();
                 if(!withdrawal || withdrawal.status !== 'pending') return showToast("تمت المعالجة مسبقاً", 'error');
                 
                 await db.ref('withdrawRequests/' + withdrawalId).update({
@@ -1861,7 +2425,8 @@
             } catch(e) { showToast("خطأ", 'error'); }
         }
 
-        function initPlans() {            const list = document.getElementById('plansList');
+        function initPlans() {
+            const list = document.getElementById('plansList');
             list.innerHTML = "";
             plans.forEach(p => {
                 const isCurrent = userData.planId === p.id;
@@ -1882,10 +2447,8 @@
             saveUserData(); initPlans(); updateUI();
             showToast(`تم تفعيل ${name} بنجاح! 🚀`, 'success');
             createNotification(userData.id, `تم تفعيل باقة ${name} 🎉`, `بدأت رحلة أرباحك اليومية $${daily}.`, 'success');
-            // فحص الإنجازات بعد شراء باقة
             setTimeout(checkAchievements, 500);
         }
-
         function updateUI() {
             if(!userData) return;
             document.getElementById('pBalance').innerText = (userData.balance||0).toFixed(2);
@@ -1910,19 +2473,18 @@
             const dots = document.querySelectorAll('.mining-click-dot');
             dots.forEach((dot, i) => dot.classList.toggle('filled', i < clicks));
             
-            const remaining = MINING_CLICKS_PER_DAY - clicks;            const statusEl = document.getElementById('miningStatus');
+            const remaining = MINING_CLICKS_PER_DAY - clicks;
+            const statusEl = document.getElementById('miningStatus');
             const miningBtn = document.getElementById('miningBtn');
             
             if(clicks >= MINING_CLICKS_PER_DAY) {
                 statusEl.innerHTML = '<span class="text-success">✅ تم التعدين اليوم بالكامل</span>';
                 miningBtn.disabled = true;
                 miningBtn.innerHTML = '<i class="fa-solid fa-check me-2"></i> اكتمل التعدين';
-                miningBtn.style.opacity = '0.5';
             } else {
                 statusEl.innerHTML = `النقرات المتبقية: ${remaining}/${MINING_CLICKS_PER_DAY}`;
                 miningBtn.disabled = false;
                 miningBtn.innerHTML = `<i class="fa-solid fa-hand-pointer me-2"></i> انقر للتعدين (${clicks}/${MINING_CLICKS_PER_DAY})`;
-                miningBtn.style.opacity = '1';
             }
             
             const initials = userData.name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
@@ -1935,9 +2497,11 @@
                 const days = Math.ceil((userData.planExpiresAt - Date.now()) / 86400000);
                 if(days <= 0) { expC.classList.remove('active'); expT.innerText = "⚠️ انتهت - جدد الآن"; expT.style.color="var(--danger)"; }
                 else { expC.classList.add('active'); expT.innerText = `ينتهي خلال: ${days} يوم`; expT.style.color="#6ee7b7"; }
-            } else { expC.classList.add('hidden'); }
+            } else { expC.classList.add('hidden'); }            
+            // تحميل المخزن
+            userInventory = userData.inventory || {};
+            updateInventoryDisplay();
             
-            // تحديث عرض المستوى
             updateLevelDisplay();
             
             if(userData.email === MASTER_ADMIN) document.getElementById('masterAdminPanel').classList.remove('hidden');
@@ -1955,11 +2519,17 @@
 
         function logout() { 
             if(confirm("هل تريد تسجيل الخروج؟")) { 
-                if (notificationsListener) notificationsListener();
-                localStorage.clear(); 
+                if (notificationsRef && notificationsListener) {
+                    notificationsRef.off('value', notificationsListener);
+                    notificationsRef = null;
+                    notificationsListener = null;
+                }
+                
+                localStorage.clear();
                 location.reload(); 
             } 
-        }        
+        }
+        
         function openAdminModal() { 
             document.getElementById('adminModal').style.display='flex'; 
             if(userData?.email === MASTER_ADMIN) { loadPendingDeposits(); loadPendingWithdrawals(); loadAdminCoupons(); }
@@ -1976,8 +2546,7 @@
                 if(type==='freeze'){target.isFrozen=!target.isFrozen;showToast(target.isFrozen?"تم التجميد 🔒":"تم الفك 🔓");}
                 if(type==='plan'){const pid=parseInt(document.getElementById('adminPlanLv').value);const p=plans.find(x=>x.id===pid);if(p){target.plan=p.n;target.planId=p.id;target.daily=p.d;target.planExpiresAt=Date.now()+(PLAN_DURATION_DAYS*86400000);showToast("تم تعيين الباقة ✅");}else return showToast("باقة غير صحيحة",'error');}
                 await db.ref('users/'+actualUid).update(target);
-                if(userData&&userData.id===actualUid){userData=Object.assign({},target);updateUI();}
-            }catch(e){showToast("خطأ: "+e.message,'error');}
+                if(userData&&userData.id===actualUid){userData=Object.assign({},target);updateUI();}            }catch(e){showToast("خطأ: "+e.message,'error');}
         }
         
         async function listAllUsers(){
@@ -2008,7 +2577,8 @@
         }
         
         async function loadAdminCoupons(){
-            const l=document.getElementById('adminCouponList');            l.innerHTML='<p class="text-center text-secondary text-xs">جاري...</p>';
+            const l=document.getElementById('adminCouponList');
+            l.innerHTML='<p class="text-center text-secondary text-xs">جاري...</p>';
             try{
                 const s=await db.ref('coupons').limitToLast(20).once('value');
                 const c=s.val();
@@ -2025,8 +2595,7 @@
                 let d=0;
                 if(c){
                     const u={};
-                    for(const k in c){if(c[k].usedBy){u['coupons/'+k]=null;d++;}}
-                    if(Object.keys(u).length>0)await db.ref().update(u);
+                    for(const k in c){if(c[k].usedBy){u['coupons/'+k]=null;d++;}}                    if(Object.keys(u).length>0)await db.ref().update(u);
                 }
                 showToast(`تم حذف ${d} كوبون ✅`);
                 loadAdminCoupons();
@@ -2057,7 +2626,8 @@
             if(uid) {
                 db.ref('users/'+uid).once('value').then(s => {
                     if(s.exists()) { 
-                        userData={...s.val(), id:uid};                         document.getElementById('authContainer').classList.add('hidden'); 
+                        userData={...s.val(), id:uid}; 
+                        document.getElementById('authContainer').classList.add('hidden'); 
                         document.getElementById('mainApp').style.display='block'; 
                         document.getElementById('bottomNav').style.display='flex'; 
                         initPlans(); 
@@ -2074,8 +2644,7 @@
             }
             
             document.querySelector('.SignUpLink')?.addEventListener('click', e=>{
-                e.preventDefault();
-                document.getElementById('authContainer').classList.add('active');
+                e.preventDefault();                document.getElementById('authContainer').classList.add('active');
             });
             document.querySelector('.SignInLink')?.addEventListener('click', e=>{
                 e.preventDefault();
