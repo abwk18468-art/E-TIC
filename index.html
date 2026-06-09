@@ -3,18 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>E-TIC | CLOUD MASTER EDITION</title>
-    <base href=".">
-    
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="icon.png">
-    <link rel="apple-touch-icon" href="icon.png">
-    
+    <title>E-TIC | CLOUD MINING</title>
     <meta name="theme-color" content="#0a0014">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="E-TIC">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
@@ -47,7 +37,8 @@
         
         body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.1) 0%, transparent 30%), radial-gradient(circle at 90% 80%, rgba(255, 0, 229, 0.1) 0%, transparent 30%), radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.05) 0%, transparent 70%); z-index: -2; pointer-events: none; }
         .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
-        .particle { position: absolute; border-radius: 50%; background: var(--accent); animation: float 15s infinite linear; opacity: 0.3; box-shadow: 0 0 20px var(--accent-glow); }        @keyframes float { 0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; } 10% { opacity: 0.4; } 90% { opacity: 0.4; } 100% { transform: translateY(-20vh) translateX(50px) rotate(720deg); opacity: 0; } }
+        .particle { position: absolute; border-radius: 50%; background: var(--accent); animation: float 15s infinite linear; opacity: 0.3; box-shadow: 0 0 20px var(--accent-glow); }
+        @keyframes float { 0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; } 10% { opacity: 0.4; } 90% { opacity: 0.4; } 100% { transform: translateY(-20vh) translateX(50px) rotate(720deg); opacity: 0; } }
         
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: rgba(30, 10, 50, 0.5); }
@@ -57,7 +48,6 @@
         .notification-bell:hover { background: rgba(0, 240, 255, 0.1); border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); transform: scale(1.05); }
         .notification-badge { position: absolute; top: -4px; right: -4px; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 10px; background: linear-gradient(135deg, var(--danger), #ff3377); color: white; font-size: 0.7rem; font-weight: 800; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(255, 0, 85, 0.5); animation: badgePulse 2s infinite; font-family: 'Orbitron', sans-serif; }
         @keyframes badgePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-
         .notification-dropdown { position: fixed; top: 70px; left: 20px; right: 20px; max-width: 400px; margin: 0 auto; background: linear-gradient(145deg, rgba(20, 5, 40, 0.98), rgba(10, 0, 30, 0.98)); border: 2px solid var(--accent); border-radius: 20px; box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8), 0 0 40px var(--accent-glow); z-index: 99999; display: none; max-height: 70vh; overflow: hidden; backdrop-filter: blur(20px); }
         .notification-dropdown.show { display: block; animation: dropdownSlide 0.3s ease-out; }
         @keyframes dropdownSlide { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
@@ -81,22 +71,11 @@
         .notification-empty { text-align: center; padding: 40px 20px; color: var(--text-secondary); }
         .notification-empty i { font-size: 3rem; margin-bottom: 10px; opacity: 0.3; }
 
-        .pwa-banner { position: fixed; bottom: 100px; left: 20px; right: 20px; background: linear-gradient(145deg, rgba(0, 240, 255, 0.15), rgba(255, 0, 229, 0.1)); border: 1px solid var(--accent); border-radius: 16px; padding: 15px; display: none; align-items: center; gap: 12px; z-index: 9999; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--accent-glow); }
-        .pwa-banner.show { display: flex; animation: bannerSlide 0.5s ease-out; }
-        @keyframes bannerSlide { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .pwa-banner-icon { width: 45px; height: 45px; border-radius: 12px; background: linear-gradient(145deg, var(--accent), var(--secondary)); display: flex; align-items: center; justify-content: center; color: #0a0014; font-size: 1.3rem; flex-shrink: 0; }
-        .pwa-banner-text { flex: 1; }
-        .pwa-banner-text h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 2px; }
-        .pwa-banner-text p { font-size: 0.75rem; color: var(--text-secondary); }
-        .pwa-banner-actions { display: flex; gap: 8px; }
-        .pwa-banner-actions button { padding: 6px 12px; border-radius: 10px; font-size: 0.75rem; font-weight: 700; cursor: pointer; border: none; transition: var(--transition); }
-        .pwa-banner-install { background: var(--accent); color: #0a0014; }
-        .pwa-banner-dismiss { background: rgba(255, 255, 255, 0.1); color: var(--text-secondary); border: 1px solid var(--border) !important; }
-
         .auth-container { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 100000; background: var(--bg-gradient); transition: var(--transition); padding: 20px; }
         .auth-container.hidden { opacity: 0; pointer-events: none; transform: scale(1.05); }
         .auth-card { position: relative; width: 100%; max-width: 420px; min-height: 580px; background: var(--card-bg); border: 2px solid var(--border); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75), 0 0 60px var(--accent-glow); border-radius: 24px; overflow: hidden; backdrop-filter: blur(20px); z-index: 10; }
-        .curved-shape { position: absolute; top: -15%; left: 0; width: 100%; height: 45%; background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(255, 0, 229, 0.1)); transform: skewY(-8deg); transition: var(--transition); z-index: 1; border-bottom: 1px solid var(--border); }        .form-box { position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 35px; transition: var(--transition); z-index: 10; text-align: center; }
+        .curved-shape { position: absolute; top: -15%; left: 0; width: 100%; height: 45%; background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(255, 0, 229, 0.1)); transform: skewY(-8deg); transition: var(--transition); z-index: 1; border-bottom: 1px solid var(--border); }
+        .form-box { position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 35px; transition: var(--transition); z-index: 10; text-align: center; }
         .form-box.Login { left: 0; opacity: 1; } .auth-container.active .form-box.Login { left: -100%; opacity: 0; }
         .form-box.Signup { left: 100%; opacity: 0; } .auth-container.active .form-box.Signup { left: 0; opacity: 1; }
         .brand-title { font-size: 3.2rem; font-weight: 900; margin-bottom: 10px; background: linear-gradient(45deg, var(--accent), var(--secondary)); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 0 30px var(--accent-glow); font-family: 'Orbitron', sans-serif; }
@@ -117,8 +96,7 @@
         #mainApp { display: none; height: 100dvh; position: relative; z-index: 50; }
         .page { display: none; height: 100dvh; padding: 20px; overflow-y: auto; padding-bottom: 100px; position: relative; z-index: 20; animation: fadeIn 0.4s ease-out; -webkit-overflow-scrolling: touch; }
         .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        #miningPage.active, #depositPage.active, #withdrawPage.active, #aboutPage.active { display: flex; align-items: flex-start; justify-content: center; flex-direction: column; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }        #miningPage.active, #depositPage.active, #withdrawPage.active, #aboutPage.active { display: flex; align-items: flex-start; justify-content: center; flex-direction: column; }
         
         .card { background: var(--card-bg); border-radius: 20px; padding: 24px; margin-bottom: 18px; border: 1px solid var(--border); box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 30px rgba(0, 240, 255, 0.1); backdrop-filter: blur(20px); transition: var(--transition); }
         .card:hover { border-color: var(--accent); box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 40px var(--accent-glow); transform: translateY(-3px); }
@@ -145,233 +123,31 @@
         
         .balance-card { text-align: center; padding: 28px 20px !important; background: linear-gradient(145deg, rgba(20, 5, 40, 0.95), rgba(10, 0, 30, 0.98)); border: 2px solid var(--accent) !important; box-shadow: 0 0 50px var(--accent-glow) !important; }
         .balance-amount { font-size: 3.2rem; font-weight: 900; background: linear-gradient(45deg, var(--accent), var(--secondary)); -webkit-background-clip: text; background-clip: text; color: transparent; font-family: 'Orbitron', sans-serif; }
-                .profile-header { padding: 30px 20px; background: linear-gradient(145deg, rgba(0, 240, 255, 0.08), rgba(255, 0, 229, 0.08)); border-radius: 20px; margin-bottom: 20px; border: 1px solid var(--border); text-align: center; position: relative; }
+        
+        .profile-header { padding: 30px 20px; background: linear-gradient(145deg, rgba(0, 240, 255, 0.08), rgba(255, 0, 229, 0.08)); border-radius: 20px; margin-bottom: 20px; border: 1px solid var(--border); text-align: center; position: relative; }
         .user-avatar { width: 90px; height: 90px; border-radius: 24px; background: linear-gradient(145deg, var(--accent), var(--secondary)); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800; color: #0a0014; margin: 0 auto 15px; box-shadow: 0 0 40px var(--accent-glow); font-family: 'Orbitron', sans-serif; }
         
         .plan-expiry-badge { margin-top: 10px; padding: 8px 15px; background: rgba(255, 0, 85, 0.15); border: 1px solid rgba(255, 0, 85, 0.4); border-radius: 15px; color: #ff8fa3; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 8px; }
         .plan-expiry-badge.active { background: rgba(0, 255, 136, 0.15); border-color: rgba(0, 255, 136, 0.4); color: #80ffbb; }
 
-        /* === نظام التعدين المحسّن === */
-        .mining-container {
-          width: 100%;
-          max-width: 400px;
-          margin: 0 auto;
-        }
+        .mining-container { width: 100%; max-width: 400px; margin: 0 auto; }
+        .mining-display { background: linear-gradient(145deg, rgba(0, 240, 255, 0.1), rgba(255, 0, 229, 0.1)); border: 2px solid var(--accent); border-radius: 24px; padding: 30px; text-align: center; margin-bottom: 20px; position: relative; overflow: hidden; }
+        .current-item { font-size: 6rem; margin: 20px 0; position: relative; z-index: 1; animation: itemFloat 2s ease-in-out infinite; }
+        @keyframes itemFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        .item-name { font-size: 1.5rem; font-weight: 900; color: var(--accent); margin: 10px 0; font-family: 'Orbitron', sans-serif; }
+        .item-value { font-size: 2rem; font-weight: 900; color: var(--success); margin: 10px 0; text-shadow: 0 0 20px rgba(0, 255, 136, 0.5); font-family: 'Orbitron', sans-serif; }
 
-        .mining-display {
-          background: linear-gradient(145deg, rgba(0, 240, 255, 0.1), rgba(255, 0, 229, 0.1));
-          border: 2px solid var(--accent);
-          border-radius: 24px;
-          padding: 30px;
-          text-align: center;
-          margin-bottom: 20px;
-          position: relative;
-          overflow: hidden;
-        }
+        .mining-clicks-container { display: flex; justify-content: center; gap: 12px; margin: 20px 0; }
+        .mining-click-dot { width: 20px; height: 20px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); border: 3px solid var(--border); transition: var(--transition); position: relative; }
+        .mining-click-dot.filled { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); animation: dotPulse 0.5s ease; }
+        @keyframes dotPulse { 0% { transform: scale(0.5); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
 
-        .mining-display::before {
-          content: '';
-          position: absolute;
-          top: -50%;
-          left: -50%;
-          width: 200%;
-          height: 200%;
-          background: linear-gradient(45deg, transparent, rgba(0, 240, 255, 0.1), transparent);
-          animation: shimmer 3s infinite;
-        }
+        .mining-btn { width: 100%; height: 70px; background: linear-gradient(145deg, var(--accent), var(--secondary)); border: none; border-radius: 20px; color: white; font-size: 1.2rem; font-weight: 900; cursor: pointer; transition: var(--transition); box-shadow: 0 10px 30px var(--accent-glow); font-family: 'Orbitron', sans-serif; letter-spacing: 2px; display: flex; align-items: center; justify-content: center; gap: 10px; position: relative; overflow: hidden; }
+        .mining-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        @keyframes shimmer {
-          0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-          100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
-        .current-item {
-          font-size: 6rem;
-          margin: 20px 0;
-          position: relative;
-          z-index: 1;
-          animation: itemFloat 2s ease-in-out infinite;
-        }
-
-        @keyframes itemFloat {
-          0%, 100% { transform: translateY(0px); }          50% { transform: translateY(-10px); }
-        }
-
-        .item-name {
-          font-size: 1.5rem;
-          font-weight: 900;
-          color: var(--accent);
-          margin: 10px 0;
-          font-family: 'Orbitron', sans-serif;
-        }
-
-        .item-value {
-          font-size: 2rem;
-          font-weight: 900;
-          color: var(--success);
-          margin: 10px 0;
-          text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-          font-family: 'Orbitron', sans-serif;
-        }
-
-        .mining-clicks-container { 
-          display: flex; 
-          justify-content: center; 
-          gap: 12px; 
-          margin: 20px 0; 
-        }
-
-        .mining-click-dot { 
-          width: 20px; 
-          height: 20px; 
-          border-radius: 50%; 
-          background: rgba(255, 255, 255, 0.1); 
-          border: 3px solid var(--border); 
-          transition: var(--transition);
-          position: relative;
-        }
-
-        .mining-click-dot.filled { 
-          background: var(--accent); 
-          border-color: var(--accent); 
-          box-shadow: 0 0 15px var(--accent-glow);
-          animation: dotPulse 0.5s ease;
-        }
-
-        @keyframes dotPulse {
-          0% { transform: scale(0.5); }
-          50% { transform: scale(1.3); }
-          100% { transform: scale(1); }
-        }
-        .mining-btn {
-          width: 100%;
-          height: 70px;
-          background: linear-gradient(145deg, var(--accent), var(--secondary));
-          border: none;
-          border-radius: 20px;
-          color: white;
-          font-size: 1.2rem;
-          font-weight: 900;
-          cursor: pointer;
-          transition: var(--transition);
-          box-shadow: 0 10px 30px var(--accent-glow);
-          font-family: 'Orbitron', sans-serif;
-          letter-spacing: 2px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 10px;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .mining-btn::before {
-          content: '';
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 0;
-          height: 0;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.3);
-          transform: translate(-50%, -50%);
-          transition: width 0.6s, height 0.6s;
-        }
-
-        .mining-btn:active::before {
-          width: 300px;
-          height: 300px;
-        }
-
-        .mining-btn:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-        }
-
-        .mining-btn:disabled::before {
-          display: none;
-        }
-
-        .mining-stats {          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 10px;
-          margin: 20px 0;
-        }
-
-        .mining-stat-card {
-          background: rgba(10, 0, 30, 0.6);
-          border: 1px solid var(--border);
-          border-radius: 12px;
-          padding: 15px;
-          text-align: center;
-        }
-
-        .mining-stat-value {
-          font-size: 1.5rem;
-          font-weight: 900;
-          color: var(--accent);
-          font-family: 'Orbitron', sans-serif;
-        }
-
-        .mining-stat-label {
-          font-size: 0.75rem;
-          color: var(--text-secondary);
-          margin-top: 5px;
-        }
-
-        .inventory-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 10px;
-          margin-top: 20px;
-        }
-
-        .inventory-item {
-          background: rgba(10, 0, 30, 0.6);
-          border: 1px solid var(--border);
-          border-radius: 12px;
-          padding: 10px;
-          text-align: center;
-          transition: var(--transition);
-          cursor: pointer;
-        }
-
-        .inventory-item:hover {
-          border-color: var(--accent);
-          transform: translateY(-3px);
-          box-shadow: 0 5px 15px var(--accent-glow);
-        }
-        .inventory-item-icon {
-          font-size: 2rem;
-          margin-bottom: 5px;
-        }
-
-        .inventory-item-count {
-          font-size: 0.7rem;
-          color: var(--text-secondary);
-        }
-
-        .mining-status { 
-          background: rgba(10, 0, 30, 0.7); 
-          border-radius: 14px; 
-          padding: 15px; 
-          margin: 20px 0; 
-          text-align: center; 
-          border: 1px solid var(--border); 
-        }
-
-        .mining-click-info { 
-          text-align: center; 
-          font-size: 0.8rem; 
-          color: var(--text-secondary); 
-          margin-bottom: 10px; 
-        }
-
-        .mining-per-click { 
-          color: var(--success); 
-          font-weight: 700; 
-          font-family: 'Orbitron', sans-serif; 
-        }
+        .mining-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 20px 0; }        .mining-stat-card { background: rgba(10, 0, 30, 0.6); border: 1px solid var(--border); border-radius: 12px; padding: 15px; text-align: center; }
+        .mining-stat-value { font-size: 1.5rem; font-weight: 900; color: var(--accent); font-family: 'Orbitron', sans-serif; }
+        .mining-stat-label { font-size: 0.75rem; color: var(--text-secondary); margin-top: 5px; }
 
         #adminModal { position: fixed; inset: 0; background: rgba(5, 0, 15, 0.95); display: none; align-items: center; justify-content: center; z-index: 200000; padding: 20px; overflow-y: auto; backdrop-filter: blur(15px); }
         #adminModal .card { max-width: 450px; width: 100%; max-height: 85vh; overflow-y: auto; }
@@ -384,29 +160,8 @@
         .btn-danger { background: linear-gradient(145deg, var(--danger), #b3003c); color: white; border: none; border-radius: 14px; padding: 14px; cursor: pointer; width: 100%; }
         .btn-success { background: linear-gradient(145deg, var(--success), #00b35f); color: #0a0014; border: none; border-radius: 14px; padding: 14px; cursor: pointer; width: 100%; font-weight: 700; }
         
-        .logout-btn {
-            width: 100%;
-            padding: 16px;
-            margin-top: 20px;
-            background: linear-gradient(145deg, rgba(255, 0, 85, 0.1), rgba(255, 0, 85, 0.05));
-            border: 2px solid var(--danger);
-            border-radius: 16px;            color: var(--danger);
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .logout-btn:hover {
-            background: linear-gradient(145deg, var(--danger), #b3003c);
-            color: white;
-            box-shadow: 0 8px 25px rgba(255, 0, 85, 0.4);
-            transform: translateY(-2px);
-        }
+        .logout-btn { width: 100%; padding: 16px; margin-top: 20px; background: linear-gradient(145deg, rgba(255, 0, 85, 0.1), rgba(255, 0, 85, 0.05)); border: 2px solid var(--danger); border-radius: 16px; color: var(--danger); font-size: 1rem; font-weight: 700; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .logout-btn:hover { background: linear-gradient(145deg, var(--danger), #b3003c); color: white; box-shadow: 0 8px 25px rgba(255, 0, 85, 0.4); transform: translateY(-2px); }
         
         .hidden { display: none !important; }
         .flex { display: flex; } .items-center { align-items: center; } .justify-center { justify-content: center; } .justify-between { justify-content: space-between; }
@@ -471,253 +226,47 @@
         .reset-modal.show { display: flex; }
         .reset-modal-card { width: 100%; max-width: 400px; background: linear-gradient(145deg, rgba(20, 5, 40, 0.98), rgba(10, 0, 30, 0.98)); border: 2px solid var(--accent); border-radius: 24px; padding: 30px 25px; box-shadow: 0 0 60px var(--accent-glow); animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
 
-        .achievements-section {
-          background: linear-gradient(145deg, rgba(0, 240, 255, 0.05), rgba(255, 0, 229, 0.05));
-          border: 1px solid var(--border);
-          border-radius: 16px;
-          padding: 16px;
-          margin: 16px 0;
-        }
-
-        .level-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 8px 16px;
-          border-radius: 20px;
-          font-weight: 700;
-          font-size: 0.9rem;
-        }
+        .achievements-section { background: linear-gradient(145deg, rgba(0, 240, 255, 0.05), rgba(255, 0, 229, 0.05)); border: 1px solid var(--border); border-radius: 16px; padding: 16px; margin: 16px 0; }
+        .level-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 0.9rem; }
         .level-1 { background: linear-gradient(135deg, #cd7f32, #8b4513); color: white; }
         .level-2 { background: linear-gradient(135deg, #c0c0c0, #808080); color: white; }
         .level-3 { background: linear-gradient(135deg, #ffd700, #daa520); color: #000; }
         .level-4 { background: linear-gradient(135deg, #00ffff, #0080ff); color: #000; }
         .level-5 { background: linear-gradient(135deg, #ff00ff, #8b00ff); color: white; }
+        .achievement-card { background: rgba(10, 0, 30, 0.6); border: 1px solid var(--border); border-radius: 16px; padding: 16px; margin: 10px 0; display: flex; align-items: center; gap: 12px; transition: var(--transition); cursor: pointer; }
+        .achievement-card:hover { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); transform: translateY(-2px); }
+        .achievement-card.unlocked { border-color: var(--success); background: rgba(0, 255, 136, 0.08); }
+        .achievement-card.locked { opacity: 0.6; }
+        .achievement-icon { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+        .achievement-icon.unlocked { background: linear-gradient(135deg, var(--success), #00b35f); color: white; box-shadow: 0 0 20px rgba(0, 255, 136, 0.4); }
+        .achievement-icon.locked { background: rgba(255, 255, 255, 0.1); color: var(--text-secondary); }
+        .achievement-info { flex: 1; min-width: 0; }
+        .achievement-title { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+        .achievement-desc { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; }
+        .achievement-reward { display: inline-block; padding: 4px 10px; background: rgba(0, 255, 136, 0.15); color: var(--success); border-radius: 10px; font-size: 0.75rem; font-weight: 700; }        .progress-bar-container { width: 100%; height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 10px; overflow: hidden; margin: 8px 0; }
+        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--secondary)); border-radius: 10px; transition: width 0.5s ease; }
+        .level-progress { background: rgba(10, 0, 30, 0.6); border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin: 10px 0; }
+        .level-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px; }
 
-        .achievement-card {
-          background: rgba(10, 0, 30, 0.6);
-          border: 1px solid var(--border);
-          border-radius: 16px;
-          padding: 16px;
-          margin: 10px 0;
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          transition: var(--transition);
-          cursor: pointer;
-        }
+        .achievement-notification { position: fixed; top: 80px; right: 20px; background: linear-gradient(135deg, rgba(0, 255, 136, 0.95), rgba(0, 200, 100, 0.95)); color: white; padding: 20px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 255, 136, 0.4); z-index: 99999; animation: slideInRight 0.5s ease-out; max-width: 320px; }
+        @keyframes slideInRight { from { transform: translateX(400px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .achievement-notification-content { display: flex; align-items: center; gap: 12px; }
+        .achievement-notification-icon { font-size: 2rem; }
+        .achievement-notification-text h4 { font-size: 1.1rem; margin-bottom: 4px; }
+        .achievement-notification-text p { font-size: 0.9rem; opacity: 0.9; }
 
-        .achievement-card:hover {
-          border-color: var(--accent);
-          box-shadow: 0 0 20px var(--accent-glow);
-          transform: translateY(-2px);
-        }
+        #achievementDetailModal { position: fixed; inset: 0; background: rgba(5, 0, 15, 0.92); display: none; align-items: center; justify-content: center; z-index: 200003; padding: 20px; backdrop-filter: blur(20px); }
+        #achievementDetailModal.show { display: flex; }
+        .achievement-detail-modal { width: 100%; max-width: 400px; background: linear-gradient(145deg, rgba(20, 5, 40, 0.98), rgba(10, 0, 30, 0.98)); border: 2px solid var(--accent); border-radius: 24px; padding: 30px 25px; position: relative; box-shadow: 0 0 60px var(--accent-glow); animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
 
-        .achievement-card.unlocked {
-          border-color: var(--success);
-          background: rgba(0, 255, 136, 0.08);
-        }
+        .show-all-btn { width: 100%; padding: 12px; margin-top: 12px; background: linear-gradient(145deg, rgba(0, 240, 255, 0.1), rgba(255, 0, 229, 0.1)); border: 1px solid var(--accent); border-radius: 14px; color: var(--accent); font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .show-all-btn:hover { background: linear-gradient(145deg, rgba(0, 240, 255, 0.2), rgba(255, 0, 229, 0.2)); box-shadow: 0 0 20px var(--accent-glow); transform: translateY(-2px); }
+        .show-all-btn i { transition: transform 0.3s ease; }
+        .show-all-btn.expanded i { transform: rotate(180deg); }
 
-        .achievement-card.locked {
-          opacity: 0.6;
-        }
-
-        .achievement-icon {
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.3rem;
-          flex-shrink: 0;
-        }
-
-        .achievement-icon.unlocked {
-          background: linear-gradient(135deg, var(--success), #00b35f);
-          color: white;
-          box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
-        }
-        .achievement-icon.locked {
-          background: rgba(255, 255, 255, 0.1);
-          color: var(--text-secondary);
-        }
-
-        .achievement-info {
-          flex: 1;
-          min-width: 0;
-        }
-
-        .achievement-title {
-          font-weight: 700;
-          font-size: 1rem;
-          margin-bottom: 4px;
-        }
-
-        .achievement-desc {
-          font-size: 0.85rem;
-          color: var(--text-secondary);
-          margin-bottom: 6px;
-        }
-
-        .achievement-reward {
-          display: inline-block;
-          padding: 4px 10px;
-          background: rgba(0, 255, 136, 0.15);
-          color: var(--success);
-          border-radius: 10px;
-          font-size: 0.75rem;
-          font-weight: 700;
-        }
-
-        .progress-bar-container {
-          width: 100%;
-          height: 8px;
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 10px;
-          overflow: hidden;
-          margin: 8px 0;
-        }
-
-        .progress-bar-fill {
-          height: 100%;
-          background: linear-gradient(90deg, var(--accent), var(--secondary));
-          border-radius: 10px;
-          transition: width 0.5s ease;
-        }
-
-        .level-progress {          background: rgba(10, 0, 30, 0.6);
-          border: 1px solid var(--border);
-          border-radius: 12px;
-          padding: 12px;
-          margin: 10px 0;
-        }
-
-        .level-info {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 8px;
-          flex-wrap: wrap;
-          gap: 6px;
-        }
-
-        .points-display {
-          text-align: center;
-          margin: 8px 0;
-        }
-
-        .points-value {
-          font-size: 1.8rem;
-          font-weight: 900;
-          background: linear-gradient(45deg, var(--accent), var(--secondary));
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-          font-family: 'Orbitron', sans-serif;
-        }
-
-        .points-label {
-          font-size: 0.85rem;
-          color: var(--text-secondary);
-        }
-
-        .achievement-notification {
-          position: fixed;
-          top: 80px;
-          right: 20px;
-          background: linear-gradient(135deg, rgba(0, 255, 136, 0.95), rgba(0, 200, 100, 0.95));
-          color: white;
-          padding: 20px;
-          border-radius: 16px;
-          box-shadow: 0 10px 40px rgba(0, 255, 136, 0.4);
-          z-index: 99999;
-          animation: slideInRight 0.5s ease-out;
-          max-width: 320px;
-        }
-        @keyframes slideInRight {
-          from { transform: translateX(400px); opacity: 0; }
-          to { transform: translateX(0); opacity: 1; }
-        }
-
-        .achievement-notification-content {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-        }
-
-        .achievement-notification-icon {
-          font-size: 2rem;
-        }
-
-        .achievement-notification-text h4 {
-          font-size: 1.1rem;
-          margin-bottom: 4px;
-        }
-
-        .achievement-notification-text p {
-          font-size: 0.9rem;
-          opacity: 0.9;
-        }
-
-        #achievementDetailModal {
-          position: fixed;
-          inset: 0;
-          background: rgba(5, 0, 15, 0.92);
-          display: none;
-          align-items: center;
-          justify-content: center;
-          z-index: 200003;
-          padding: 20px;
-          backdrop-filter: blur(20px);
-        }
-
-        #achievementDetailModal.show {
-          display: flex;
-        }
-
-        .achievement-detail-modal {
-          width: 100%;
-          max-width: 400px;
-          background: linear-gradient(145deg, rgba(20, 5, 40, 0.98), rgba(10, 0, 30, 0.98));
-          border: 2px solid var(--accent);
-          border-radius: 24px;
-          padding: 30px 25px;
-          position: relative;
-          box-shadow: 0 0 60px var(--accent-glow);          animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .show-all-btn {
-          width: 100%;
-          padding: 12px;
-          margin-top: 12px;
-          background: linear-gradient(145deg, rgba(0, 240, 255, 0.1), rgba(255, 0, 229, 0.1));
-          border: 1px solid var(--accent);
-          border-radius: 14px;
-          color: var(--accent);
-          font-size: 0.9rem;
-          font-weight: 700;
-          cursor: pointer;
-          transition: var(--transition);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-        }
-
-        .show-all-btn:hover {
-          background: linear-gradient(145deg, rgba(0, 240, 255, 0.2), rgba(255, 0, 229, 0.2));
-          box-shadow: 0 0 20px var(--accent-glow);
-          transform: translateY(-2px);
-        }
-
-        .show-all-btn i {
-          transition: transform 0.3s ease;
-        }
-
-        .show-all-btn.expanded i {
-          transform: rotate(180deg);
-        }
+        .loading-screen { position: fixed; inset: 0; background: var(--bg-gradient); display: flex; align-items: center; justify-content: center; z-index: 999999; }
+        .loading-spinner { width: 60px; height: 60px; border: 4px solid rgba(0, 240, 255, 0.2); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         @media (max-width: 480px) {
             .page { padding: 15px; padding-bottom: 95px; }
@@ -732,14 +281,18 @@
             .achievements-section { padding: 12px; }
             .achievement-card { padding: 12px; }
             .current-item { font-size: 5rem; }
-            .inventory-grid { grid-template-columns: repeat(3, 1fr); }
         }
+
         body { overscroll-behavior: none; }
     </style>
 </head>
 <body>
-    <div class="particles" id="particles"></div>
-    <div id="toast"><i class="fa-solid fa-circle-check"></i><span id="toastMessage">تمت العملية بنجاح</span></div>
+    <!-- شاشة التحميل -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div class="particles" id="particles"></div>    <div id="toast"><i class="fa-solid fa-circle-check"></i><span id="toastMessage">تمت العملية بنجاح</span></div>
 
     <div id="notificationDropdown" class="notification-dropdown" onclick="event.stopPropagation()">
         <div class="notification-header">
@@ -751,18 +304,6 @@
                 <i class="fa-solid fa-bell-slash"></i>
                 <p>لا توجد إشعارات</p>
             </div>
-        </div>
-    </div>
-
-    <div id="pwaBanner" class="pwa-banner">
-        <div class="pwa-banner-icon"><i class="fa-solid fa-mobile-screen"></i></div>
-        <div class="pwa-banner-text">
-            <h4>ثبّت تطبيق E-TIC</h4>
-            <p>وصول أسرع وإشعارات فورية</p>
-        </div>
-        <div class="pwa-banner-actions">
-            <button class="pwa-banner-install" onclick="installPWA()">تثبيت</button>
-            <button class="pwa-banner-dismiss" onclick="dismissPWA()">لاحقاً</button>
         </div>
     </div>
 
@@ -782,7 +323,8 @@
                 <label>كلمة المرور الجديدة (6 أحرف كحد أدنى)</label>
                 <i class="fa-solid fa-lock"></i>
             </div>
-                        <button onclick="resetPassword()" class="btn">تحديث كلمة المرور</button>
+            
+            <button onclick="resetPassword()" class="btn">تحديث كلمة المرور</button>
             <button onclick="closeResetModal()" class="btn btn-outline btn-small">إلغاء</button>
         </div>
     </div>
@@ -799,8 +341,7 @@
                 <div class="plan-stat-row"><span class="plan-stat-label"><i class="fa-solid fa-coins me-1"></i> العائد اليومي</span><span class="plan-stat-value" id="modalDailyReturn">$0.00</span></div>
                 <div class="plan-stat-row"><span class="plan-stat-label"><i class="fa-solid fa-calendar me-1"></i> العائد الشهري</span><span class="plan-stat-value highlight" id="modalMonthlyReturn">$0.00</span></div>
                 <div class="plan-stat-row"><span class="plan-stat-label"><i class="fa-solid fa-chart-line me-1"></i> نسبة الربح الشهري</span><span class="plan-stat-value highlight" id="modalMonthlyROI">0%</span></div>
-            </div>
-            <div class="plan-total-profit">
+            </div>            <div class="plan-total-profit">
                 <p class="plan-total-profit-label">إجمالي الأرباح المتوقعة خلال 6 أشهر</p>
                 <p class="plan-total-profit-value">$<span id="modalTotalReturn">0.00</span></p>
                 <p class="text-xs text-secondary mt-2">صافي الربح: <span class="text-success font-bold" id="modalNetProfit">$0.00</span></p>
@@ -827,11 +368,7 @@
                     <span class="text-secondary">النقاط:</span>
                     <span class="text-accent font-bold" id="detailAchievementPoints">0</span>
                 </div>
-                <div class="flex justify-between" id="detailAchievementDateRow" style="display: none;">
-                    <span class="text-secondary">تاريخ الفتح:</span>
-                    <span class="text-primary font-bold" id="detailAchievementDate">-</span>
-                </div>
-            </div>            <div id="detailAchievementStatus" class="text-center mb-4"></div>
+            </div>
             <button onclick="closeAchievementDetail()" class="btn">إغلاق</button>
         </div>
     </div>
@@ -854,7 +391,6 @@
                 </div>
                 <button onclick="listAllUsers()" class="w-full btn-outline text-xs mt-3 py-3">عرض المستخدمين</button>
             </div>
-
             <div style="border-top: 1px solid var(--border); padding-top: 15px; margin-top:15px;">
                 <h4 class="text-sm font-bold text-accent mb-3 flex items-center gap-2">
                     <i class="fa-solid fa-inbox"></i> 📥 طلبات الإيداع
@@ -880,7 +416,8 @@
             <div style="border-top: 1px solid var(--border); padding-top: 15px; margin-top:15px;">
                 <h4 class="text-sm font-bold text-accent mb-3">🎫 إدارة الكوبونات</h4>
                 <input type="text" id="adminCouponCode" placeholder="الكود" class="input-style uppercase">
-                <input type="number" id="adminCouponValue" placeholder="القيمة ($)" class="input-style">                <div class="flex gap-2">
+                <input type="number" id="adminCouponValue" placeholder="القيمة ($)" class="input-style">
+                <div class="flex gap-2">
                     <button onclick="createCoupon()" class="btn-accent flex-1 text-xs py-3">إنشاء</button>
                     <button onclick="loadAdminCoupons()" class="btn-outline flex-1 text-xs py-3">تحديث</button>
                 </div>
@@ -892,7 +429,7 @@
         </div>
     </div>
 
-    <div id="authContainer" class="auth-container">
+    <div id="authContainer" class="auth-container" style="display:none;">
         <div class="auth-card">
             <div class="curved-shape"></div>
             <div class="form-box Login">
@@ -902,8 +439,7 @@
                     <div class="input-box"><input type="email" id="loginEmail" required><label>البريد الإلكتروني</label><i class="fa-solid fa-envelope"></i></div>
                     <div class="input-box"><input type="password" id="loginPassword" required><label>كلمة المرور</label><i class="fa-solid fa-lock"></i></div>
                     <button type="submit" class="btn" id="loginBtn">دخول آمن</button>
-                    <div class="forgot-password" onclick="openResetModal()">نسيت كلمة المرور؟</div>
-                    <div class="regi-link mt-4"><p class="text-secondary text-sm">ليس لديك حساب؟ <a class="SignUpLink">إنشاء حساب</a></p></div>
+                    <div class="forgot-password" onclick="openResetModal()">نسيت كلمة المرور؟</div>                    <div class="regi-link mt-4"><p class="text-secondary text-sm">ليس لديك حساب؟ <a class="SignUpLink">إنشاء حساب</a></p></div>
                 </form>
             </div>
             <div class="form-box Signup">
@@ -920,7 +456,7 @@
         </div>
     </div>
 
-    <div id="mainApp">
+    <div id="mainApp" style="display:none;">
         <div id="profilePage" class="page active">
             <div class="profile-header">
                 <div style="position: absolute; top: 20px; left: 20px;" onclick="toggleNotifications()">
@@ -929,6 +465,7 @@
                         <span class="notification-badge hidden" id="notificationBadge">0</span>
                     </div>
                 </div>
+
                 <div class="user-avatar" id="userAvatarDisplay">U</div>
                 <h2 class="text-xl font-bold mb-1" id="userNameDisplay">---</h2>
                 <p class="text-secondary text-sm mb-2" id="userEmailDisplay">email@example.com</p>
@@ -947,25 +484,11 @@
                 </div>
             </div>
             
-            <div id="enableNotifCard" class="card hidden" style="background: linear-gradient(145deg, rgba(0, 240, 255, 0.1), rgba(255, 0, 229, 0.05)); border-color: var(--accent);">
-                <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center text-white text-xl flex-shrink-0">
-                        <i class="fa-solid fa-bell"></i>
-                    </div>
-                    <div class="flex-1">
-                        <h4 class="font-bold text-sm mb-1">فعّل الإشعارات</h4>
-                        <p class="text-xs text-secondary">احصل على تنبيهات فورية</p>
-                    </div>
-                    <button onclick="requestNotificationPermission()" class="btn-accent !w-auto !px-4 !py-2 text-xs">تفعيل</button>
-                </div>
-            </div>
-
             <div class="achievements-section">
               <div class="flex items-center justify-between mb-3">
                 <h3 class="font-bold text-base flex items-center gap-2">
                   <i class="fa-solid fa-trophy text-warning"></i> الإنجازات
-                </h3>
-                <span class="text-xs text-secondary" id="achievementsCount">0/5</span>
+                </h3>                <span class="text-xs text-secondary" id="achievementsCount">0/5</span>
               </div>
               
               <div class="level-progress">
@@ -978,7 +501,8 @@
                   <div class="flex-1">
                     <div class="progress-bar-container">
                       <div class="progress-bar-fill" id="levelProgressBar" style="width: 0%"></div>
-                    </div>                  </div>
+                    </div>
+                  </div>
                   <div class="text-right">
                     <span class="text-accent font-bold text-sm" id="userPoints">0</span>
                     <span class="text-secondary text-xs"> نقطة</span>
@@ -1013,8 +537,7 @@
             <button onclick="tabNav(document.querySelector('.nav-item:nth-child(6)'), 'aboutPage')" class="card !mb-4 w-full flex items-center gap-4 hover:border-accent transition">
                 <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xl"><i class="fa-solid fa-building"></i></div>
                 <div class="text-right flex-1"><h4 class="font-bold text-sm">من نحن</h4><p class="text-xs text-secondary">تعرف على شركة E-TIC</p></div>
-                <i class="fa-solid fa-chevron-left text-secondary"></i>
-            </button>
+                <i class="fa-solid fa-chevron-left text-secondary"></i>            </button>
             
             <div class="card">
                 <h3 class="font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-share-nodes text-secondary"></i> برنامج الإحالة</h3>
@@ -1027,6 +550,7 @@
                     <div><span class="block font-bold text-lg text-success" id="referralEarnings">$0</span>أرباح</div>
                 </div>
             </div>
+
             <div class="card">
                 <h3 class="font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-ticket text-accent"></i> استخدم كوبون</h3>
                 <div class="flex gap-2">
@@ -1053,7 +577,6 @@
             <div id="plansList" class="grid grid-cols-2 gap-3 pb-20"></div>
         </div>
         
-        <!-- === صفحة التعدين المحسّنة === -->
         <div id="miningPage" class="page">
             <div class="mining-container">
                 <div class="text-center mb-6">
@@ -1061,26 +584,23 @@
                     <p class="text-secondary text-sm">انقر لاستخراج البضائع الثمينة</p>
                 </div>
 
-                <!-- عرض البضاعة الحالية -->
                 <div class="mining-display">
                     <div class="current-item" id="currentItemIcon">💎</div>
-                    <div class="item-name" id="currentItemName">ألماسة نادرة</div>
-                    <div class="item-value" id="currentItemValue">+$0.00</div>
+                    <div class="item-name" id="currentItemName">ألماسة نادرة</div>                    <div class="item-value" id="currentItemValue">+$0.00</div>
                     <p class="text-xs text-secondary mt-2" id="currentItemDesc">ألماسة عالية الجودة من أعمق المناجم</p>
                 </div>
 
-                <!-- إحصائيات التعدين -->
                 <div class="mining-stats">
                     <div class="mining-stat-card">
                         <div class="mining-stat-value" id="miningDailyAmount">$0.00</div>
                         <div class="mining-stat-label">العائد اليومي</div>
                     </div>
                     <div class="mining-stat-card">
-                        <div class="mining-stat-value" id="miningPerClick">$0.00</div>                        <div class="mining-stat-label">لكل نقرة</div>
+                        <div class="mining-stat-value" id="miningPerClick">$0.00</div>
+                        <div class="mining-stat-label">لكل نقرة</div>
                     </div>
                 </div>
 
-                <!-- نقاط التقدم -->
                 <div class="card">
                     <div class="text-center mb-3">
                         <p class="text-secondary text-sm mb-2">التقدم اليومي</p>
@@ -1094,27 +614,10 @@
                         <p class="text-xs text-secondary mt-2" id="miningStatus">النقرات المتبقية: 5/5</p>
                     </div>
 
-                    <!-- زر التعدين -->
                     <button onclick="doMiningClick()" class="mining-btn" id="miningBtn">
                         <i class="fa-solid fa-hand-pointer"></i>
                         <span>انقر للتعدين</span>
                     </button>
-                </div>
-
-                <!-- مخزن البضائع -->
-                <div class="card mt-4">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="font-bold flex items-center gap-2">
-                            <i class="fa-solid fa-box-open text-accent"></i>
-                            مخزن البضائع
-                        </h3>
-                        <span class="text-xs text-secondary" id="inventoryCount">0 بضاعة</span>
-                    </div>
-                    <div class="inventory-grid" id="inventoryGrid">
-                        <div class="text-center text-secondary text-xs" style="grid-column: 1 / -1;">
-                            لا توجد بضائع بعد - ابدأ التعدين!
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1125,14 +628,14 @@
                     <div class="card w-full">
                         <div class="text-center mb-6">
                             <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-green-500/10 flex justify-center items-center text-green-400 text-2xl border border-green-500/20"><i class="fa-solid fa-wallet"></i></div>
-                            <h3 class="text-xl font-bold mb-1">إيداع الأموال</h3>                            <p class="text-secondary text-xs">اتبع الخطوات التالية</p>
+                            <h3 class="text-xl font-bold mb-1">إيداع الأموال</h3>
+                            <p class="text-secondary text-xs">اتبع الخطوات التالية</p>
                         </div>
                         <div class="mb-6">
                             <div class="deposit-step"><div class="deposit-step-number">1</div><div class="flex-1"><p class="font-bold text-sm">انسخ عنوان المحفظة</p><p class="text-xs text-secondary">USDT (TRC20)</p></div></div>
                             <div class="deposit-step"><div class="deposit-step-number">2</div><div class="flex-1"><p class="font-bold text-sm">أدخل المبلغ المرسل</p><p class="text-xs text-secondary">نفس المبلغ الذي أرسلته</p></div></div>
                             <div class="deposit-step"><div class="deposit-step-number">3</div><div class="flex-1"><p class="font-bold text-sm">انتظر الموافقة</p><p class="text-xs text-secondary">خلال 10-30 دقيقة</p></div></div>
-                        </div>
-                        <div class="bg-white/5 rounded-xl p-3 mb-4 border border-dashed border-white/20 text-center cursor-pointer hover:border-accent transition" onclick="copyAddress(this)">
+                        </div>                        <div class="bg-white/5 rounded-xl p-3 mb-4 border border-dashed border-white/20 text-center cursor-pointer hover:border-accent transition" onclick="copyAddress(this)">
                             <p class="text-[10px] text-secondary mb-1"><i class="fa-solid fa-copy text-accent me-1"></i> محفظة USDT (TRC20) - اضغط للنسخ</p>
                             <p class="font-mono text-xs text-accent break-all select-all">TTmVnVwGtMm11BkxJA7LYitCgfTqoSN8dw</p>
                         </div>
@@ -1174,14 +677,14 @@
                         <div class="mb-4">
                             <label class="text-xs text-secondary mb-1 block">المبلغ المطلوب</label>
                             <input type="number" id="witAmount" placeholder="$0.00" class="input-style" oninput="calculateCommission()">
-                        </div>                        <div id="commissionDisplay" class="hidden bg-white/5 rounded-xl p-3 mb-4 text-xs border border-white/5">
+                        </div>
+                        <div id="commissionDisplay" class="hidden bg-white/5 rounded-xl p-3 mb-4 text-xs border border-white/5">
                             <div class="flex justify-between mb-1"><span>المبلغ:</span> <span id="withdrawAmountDisplay">$0</span></div>
                             <div class="flex justify-between mb-1 text-danger"><span>- العمولة (10%):</span> <span id="commissionAmountDisplay">$0</span></div>
                             <div class="flex justify-between font-bold text-success border-t border-white/10 pt-1 mt-1"><span>= يصلك:</span> <span id="receiveAmountDisplay">$0</span></div>
                         </div>
                         <button onclick="submitWithdrawRequest()" class="btn w-full"><i class="fa-solid fa-paper-plane me-1"></i> إرسال طلب السحب</button>
-                        <div class="mt-4 p-3 bg-purple-500/5 border border-purple-500/10 rounded-xl">
-                            <p class="text-[10px] text-secondary text-center"><i class="fa-solid fa-circle-info text-accent me-1"></i> سيتم مراجعة الطلب</p>
+                        <div class="mt-4 p-3 bg-purple-500/5 border border-purple-500/10 rounded-xl">                            <p class="text-[10px] text-secondary text-center"><i class="fa-solid fa-circle-info text-accent me-1"></i> سيتم مراجعة الطلب</p>
                         </div>
                     </div>
                     <div class="card w-full">
@@ -1223,16 +726,17 @@
             </div>
         </div>
         
-        <nav id="bottomNav">            <div class="nav-item active" onclick="tabNav(this, 'profilePage')"><i class="fa-solid fa-user-shield"></i><br>الرئيسية</div>
+        <nav id="bottomNav" style="display:none;">
+            <div class="nav-item active" onclick="tabNav(this, 'profilePage')"><i class="fa-solid fa-user-shield"></i><br>الرئيسية</div>
             <div class="nav-item" onclick="tabNav(this, 'plansPage')"><i class="fa-solid fa-gem"></i><br>الباقات</div>
             <div class="nav-item" onclick="tabNav(this, 'miningPage')"><i class="fa-solid fa-bolt-lightning"></i><br>التعدين</div>
             <div class="nav-item" onclick="tabNav(this, 'depositPage')"><i class="fa-solid fa-circle-plus"></i><br>إيداع</div>
             <div class="nav-item" onclick="tabNav(this, 'withdrawPage')"><i class="fa-solid fa-wallet"></i><br>سحب</div>
             <div class="nav-item" onclick="tabNav(this, 'aboutPage')"><i class="fa-solid fa-building"></i><br>من نحن</div>
-        </nav>
-    </div>
+        </nav>    </div>
 
     <script>
+        // إعداد Firebase
         const firebaseConfig = {
           apiKey: "AIzaSyBlag2FX5riHH8EuS8f3Z-hxfUS4wWR_LI",
           authDomain: "e-tic-ab4f4.firebaseapp.com",
@@ -1244,8 +748,18 @@
           measurementId: "G-FTVPCQNT5B"
         };
         
-        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        try {
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+                console.log('✅ Firebase initialized successfully');
+            }
+        } catch(error) {
+            console.error('❌ Firebase initialization failed:', error);
+            alert('خطأ في الاتصال بـ Firebase. تأكد من إعدادات الاتصال.');
+        }
+        
         const db = firebase.database();
+        console.log('✅ Database connection established');
 
         const MASTER_ADMIN = "abwk18468@gmail.com";
         const CRYPTO_ADDRESS = "TTmVnVwGtMm11BkxJA7LYitCgfTqoSN8dw";
@@ -1268,11 +782,11 @@
         
         const MINING_ITEMS = [
             { icon: '💎', name: 'ألماسة نادرة', desc: 'ألماسة عالية الجودة من أعمق المناجم' },
-            { icon: '💰', name: 'كنز ذهبي', desc: 'صندوق مليء بالعملات الذهبية القديمة' },
-            { icon: '📱', name: 'هاتف ذكي', desc: 'أحدث طراز من الهواتف الذكية' },
+            { icon: '💰', name: 'كنز ذهبي', desc: 'صندوق مليء بالعملات الذهبية القديمة' },            { icon: '📱', name: 'هاتف ذكي', desc: 'أحدث طراز من الهواتف الذكية' },
             { icon: '💻', name: 'لابتوب متطور', desc: 'لابتوب بمعالج فائق السرعة' },
             { icon: '⌚', name: 'ساعة فاخرة', desc: 'ساعة سويسرية الصنع' },
-            { icon: '🎧', name: 'سماعات لاسلكية', desc: 'سماعات بتقنية إلغاء الضوضاء' },            { icon: '📷', name: 'كاميرا احترافية', desc: 'كاميرا بدقة 4K عالية الوضوح' },
+            { icon: '🎧', name: 'سماعات لاسلكية', desc: 'سماعات بتقنية إلغاء الضوضاء' },
+            { icon: '📷', name: 'كاميرا احترافية', desc: 'كاميرا بدقة 4K عالية الوضوح' },
             { icon: '🎮', name: 'وحدة ألعاب', desc: 'أحدث وحدة ألعاب بتقنية الواقع الافتراضي' },
             { icon: '💍', name: 'خاتم مرصع', desc: 'خاتم بلاتيني مرصع بالأحجار الكريمة' },
             { icon: '🏆', name: 'كأس البطولة', desc: 'كأس ذهبية خالصة' },
@@ -1292,56 +806,15 @@
         let selectedPlanForPurchase = null;
         let notificationsListener = null;
         let notificationsRef = null;
-        let deferredPrompt = null;
         let showAllAchievements = false;
         let currentItem = null;
-        let userInventory = {};
 
         const ACHIEVEMENTS = [
-          {
-            id: 'first_mining',
-            title: '🌟 أول تعدين',
-            desc: 'قم بأول نقرة تعدين',
-            reward: 0.02,
-            points: 10,
-            condition: (user) => (user.totalEarned || 0) > 0,
-            hidden: true
-          },
-          {
-            id: 'first_investor',
-            title: '💎 مستثمر',
-            desc: 'اشترِ أول باقة',
-            reward: 0.10,
-            points: 50,
-            condition: (user) => (user.planId || 0) > 0,
-            hidden: true
-          },
-          {
-            id: 'active_referrer',
-            title: '👥 محيل نشط',
-            desc: 'ادعُ 5 أشخاص',
-            reward: 0.40,
-            points: 200,            condition: (user) => (user.referrals || 0) >= 5,
-            hidden: false
-          },
-          {
-            id: 'committed',
-            title: '🔥 ملتزم',
-            desc: '10 أيام تعدين متتالية',
-            reward: 1.00,
-            points: 500,
-            condition: (user) => (user.consecutiveMiningDays || 0) >= 10,
-            hidden: false
-          },
-          {
-            id: 'elite',
-            title: '🏆 نخبة',
-            desc: 'الوصول للمستوى 5',
-            reward: 2.00,
-            points: 1000,
-            condition: (user) => calculateLevel(user.points || 0) >= 5,
-            hidden: false
-          }
+          { id: 'first_mining', title: '🌟 أول تعدين', desc: 'قم بأول نقرة تعدين', reward: 0.02, points: 10, condition: (user) => (user.totalEarned || 0) > 0, hidden: true },
+          { id: 'first_investor', title: '💎 مستثمر', desc: 'اشترِ أول باقة', reward: 0.10, points: 50, condition: (user) => (user.planId || 0) > 0, hidden: true },
+          { id: 'active_referrer', title: '👥 محيل نشط', desc: 'ادعُ 5 أشخاص', reward: 0.40, points: 200, condition: (user) => (user.referrals || 0) >= 5, hidden: false },
+          { id: 'committed', title: '🔥 ملتزم', desc: '10 أيام تعدين متتالية', reward: 1.00, points: 500, condition: (user) => (user.consecutiveMiningDays || 0) >= 10, hidden: false },
+          { id: 'elite', title: '🏆 نخبة', desc: 'الوصول للمستوى 5', reward: 2.00, points: 1000, condition: (user) => calculateLevel(user.points || 0) >= 5, hidden: false }
         ];
 
         const LEVELS = [
@@ -1358,7 +831,6 @@
           }
           return 1;
         }
-
         function getCurrentLevelInfo(points) {
           const level = calculateLevel(points);
           return LEVELS.find(l => l.level === level);
@@ -1370,7 +842,8 @@
         }
 
         function toggleAllAchievements() {
-          showAllAchievements = !showAllAchievements;          const btn = document.getElementById('showAllBtn');
+          showAllAchievements = !showAllAchievements;
+          const btn = document.getElementById('showAllBtn');
           const text = document.getElementById('showAllText');
           const icon = document.getElementById('showAllIcon');
           
@@ -1388,49 +861,44 @@
         async function loadAchievements() {
           if (!userData?.id) return;
           
-          const snap = await db.ref('achievements/' + userData.id).once('value');
-          const userAchievements = snap.val() || {};
-          
-          const listEl = document.getElementById('achievementsList');
-          let html = '';
-          let unlockedCount = 0;
-          
-          const visibleAchievements = ACHIEVEMENTS.filter(ach => {
-            if (showAllAchievements) return true;
-            return !ach.hidden;
-          });
-          
-          visibleAchievements.forEach(ach => {
-            const unlocked = userAchievements[ach.id]?.unlocked || false;
+          try {
+            const snap = await db.ref('achievements/' + userData.id).once('value');
+            const userAchievements = snap.val() || {};
             
-            if (unlocked) unlockedCount++;
+            const listEl = document.getElementById('achievementsList');
+            let html = '';
+            let unlockedCount = 0;
             
-            html += `
-              <div class="achievement-card ${unlocked ? 'unlocked' : 'locked'}" onclick="showAchievementDetail('${ach.id}')">
-                <div class="achievement-icon ${unlocked ? 'unlocked' : 'locked'}">
-                  ${unlocked ? '✓' : '🔒'}
-                </div>
-                <div class="achievement-info">
-                  <div class="achievement-title">${ach.title}</div>
-                  <div class="achievement-desc">${ach.desc}</div>
-                  <div class="achievement-reward">
-                    ${unlocked ? '✓ مفتوح' : `+$${ach.reward.toFixed(2)} • +${ach.points} نقطة`}
+            const visibleAchievements = ACHIEVEMENTS.filter(ach => showAllAchievements || !ach.hidden);
+            
+            visibleAchievements.forEach(ach => {
+              const unlocked = userAchievements[ach.id]?.unlocked || false;
+              if (unlocked) unlockedCount++;
+              
+              html += `
+                <div class="achievement-card ${unlocked ? 'unlocked' : 'locked'}" onclick="showAchievementDetail('${ach.id}')">
+                  <div class="achievement-icon ${unlocked ? 'unlocked' : 'locked'}">${unlocked ? '✓' : '🔒'}</div>
+                  <div class="achievement-info">
+                    <div class="achievement-title">${ach.title}</div>
+                    <div class="achievement-desc">${ach.desc}</div>                    <div class="achievement-reward">${unlocked ? '✓ مفتوح' : `+$${ach.reward.toFixed(2)} • +${ach.points} نقطة`}</div>
                   </div>
                 </div>
-              </div>
-            `;
-          });          
-          listEl.innerHTML = html;
-          document.getElementById('achievementsCount').textContent = `${unlockedCount}/5`;
-          updateLevelDisplay();
+              `;
+            });
+            
+            listEl.innerHTML = html;
+            document.getElementById('achievementsCount').textContent = `${unlockedCount}/5`;
+            updateLevelDisplay();
+          } catch(error) {
+            console.error('Error loading achievements:', error);
+          }
         }
 
         function showAchievementDetail(achievementId) {
           const ach = ACHIEVEMENTS.find(a => a.id === achievementId);
           if (!ach) return;
           
-          const snap = db.ref('achievements/' + userData.id + '/' + achievementId);
-          snap.once('value').then(s => {
+          db.ref('achievements/' + userData.id + '/' + achievementId).once('value').then(s => {
             const data = s.val() || {};
             const unlocked = data.unlocked || false;
             
@@ -1441,23 +909,8 @@
             document.getElementById('detailAchievementReward').textContent = `$${ach.reward.toFixed(2)}`;
             document.getElementById('detailAchievementPoints').textContent = ach.points;
             
-            const dateRow = document.getElementById('detailAchievementDateRow');
-            if (unlocked && data.unlockedAt) {
-              dateRow.style.display = 'flex';
-              document.getElementById('detailAchievementDate').textContent = new Date(data.unlockedAt).toLocaleDateString('ar-EG');
-            } else {
-              dateRow.style.display = 'none';
-            }
-            
-            const statusEl = document.getElementById('detailAchievementStatus');
-            if (unlocked) {
-              statusEl.innerHTML = '<span class="text-success font-bold">✓ تم فتح هذا الإنجاز</span>';
-            } else {
-              statusEl.innerHTML = '<span class="text-secondary">🔒 لم يتم فتح هذا الإنجاز بعد</span>';
-            }
-            
             document.getElementById('achievementDetailModal').classList.add('show');
-          });
+          }).catch(error => console.error('Error:', error));
         }
 
         function closeAchievementDetail() {
@@ -1468,19 +921,15 @@
           if (!userData) return;
           
           const points = userData.points || 0;
-          const currentLevel = getCurrentLevelInfo(points);          const nextLevel = getNextLevelInfo(points);
+          const currentLevel = getCurrentLevelInfo(points);
+          const nextLevel = getNextLevelInfo(points);
           
-          document.getElementById('currentLevelBadge').innerHTML = 
-            `<span class="level-badge level-${currentLevel.level}">${currentLevel.icon} ${currentLevel.name}</span>`;
-          
+          document.getElementById('currentLevelBadge').innerHTML = `<span class="level-badge level-${currentLevel.level}">${currentLevel.icon} ${currentLevel.name}</span>`;
           document.getElementById('userPoints').innerText = points;
           
           if (nextLevel) {
-            document.getElementById('nextLevelInfo').innerText = 
-              `التالي: ${nextLevel.icon} ${nextLevel.name}`;
-            
-            const progress = ((points - currentLevel.minPoints) / (currentLevel.maxPoints - currentLevel.minPoints)) * 100;
-            document.getElementById('levelProgressBar').style.width = `${Math.min(progress, 100)}%`;
+            document.getElementById('nextLevelInfo').innerText = `التالي: ${nextLevel.icon} ${nextLevel.name}`;
+            const progress = ((points - currentLevel.minPoints) / (currentLevel.maxPoints - currentLevel.minPoints)) * 100;            document.getElementById('levelProgressBar').style.width = `${Math.min(progress, 100)}%`;
           } else {
             document.getElementById('nextLevelInfo').innerText = '🎉 أعلى مستوى!';
             document.getElementById('levelProgressBar').style.width = '100%';
@@ -1490,16 +939,16 @@
         async function checkAchievements() {
           if (!userData?.id) return;
           
-          const snap = await db.ref('achievements/' + userData.id).once('value');
-          const userAchievements = snap.val() || {};
-          
-          let newAchievements = [];
-          let totalNewPoints = 0;
-          let totalNewRewards = 0;
-          
-          for (const ach of ACHIEVEMENTS) {
-            if (!userAchievements[ach.id]?.unlocked) {
-              if (ach.condition(userData)) {
+          try {
+            const snap = await db.ref('achievements/' + userData.id).once('value');
+            const userAchievements = snap.val() || {};
+            
+            let newAchievements = [];
+            let totalNewPoints = 0;
+            let totalNewRewards = 0;
+            
+            for (const ach of ACHIEVEMENTS) {
+              if (!userAchievements[ach.id]?.unlocked && ach.condition(userData)) {
                 newAchievements.push(ach);
                 totalNewPoints += ach.points;
                 totalNewRewards += ach.reward;
@@ -1510,29 +959,26 @@
                 });
               }
             }
-          }
-          
-          if (newAchievements.length > 0) {
-            userData.points = (userData.points || 0) + totalNewPoints;
-            userData.balance += totalNewRewards;
             
-            await db.ref('users/' + userData.id).update({
-              points: userData.points,              balance: userData.balance
-            });
-            
-            for (const ach of newAchievements) {
-              showAchievementNotification(ach);
-              await createNotification(
-                userData.id,
-                `🏆 إنجاز جديد: ${ach.title}`,
-                `مبروك! حصلت على $${ach.reward.toFixed(2)} و ${ach.points} نقطة`,
-                'success'
-              );
+            if (newAchievements.length > 0) {
+              userData.points = (userData.points || 0) + totalNewPoints;
+              userData.balance += totalNewRewards;
+              
+              await db.ref('users/' + userData.id).update({
+                points: userData.points,
+                balance: userData.balance
+              });
+              
+              for (const ach of newAchievements) {
+                showAchievementNotification(ach);
+                await createNotification(userData.id, `🏆 إنجاز جديد: ${ach.title}`, `مبروك! حصلت على $${ach.reward.toFixed(2)} و ${ach.points} نقطة`, 'success');
+              }
+              
+              updateUI();
+              loadAchievements();
             }
-            
-            updateUI();
-            loadAchievements();
-          }
+          } catch(error) {
+            console.error('Error checking achievements:', error);          }
         }
 
         function showAchievementNotification(achievement) {
@@ -1566,68 +1012,34 @@
           }
           
           const perClick = (userData?.daily || 0) / MINING_CLICKS_PER_DAY;
-                    document.getElementById('currentItemIcon').textContent = currentItem.icon;
+          
+          document.getElementById('currentItemIcon').textContent = currentItem.icon;
           document.getElementById('currentItemName').textContent = currentItem.name;
           document.getElementById('currentItemValue').textContent = `+$${perClick.toFixed(2)}`;
           document.getElementById('currentItemDesc').textContent = currentItem.desc;
-        }
-
-        function updateInventoryDisplay() {
-          const grid = document.getElementById('inventoryGrid');
-          const items = Object.entries(userInventory);
-          
-          if (items.length === 0) {
-            grid.innerHTML = '<div class="text-center text-secondary text-xs" style="grid-column: 1 / -1;">لا توجد بضائع بعد - ابدأ التعدين!</div>';
-            document.getElementById('inventoryCount').textContent = '0 بضاعة';
-            return;
-          }
-          
-          let html = '';
-          items.forEach(([icon, count]) => {
-            const item = MINING_ITEMS.find(i => i.icon === icon);
-            html += `
-              <div class="inventory-item" title="${item ? item.name : 'بضاعة'}">
-                <div class="inventory-item-icon">${icon}</div>
-                <div class="inventory-item-count">×${count}</div>
-              </div>
-            `;
-          });
-          
-          grid.innerHTML = html;
-          document.getElementById('inventoryCount').textContent = `${items.length} بضاعة`;
-        }
-
-        function addToInventory(item) {
-          if (!userInventory[item.icon]) {
-            userInventory[item.icon] = 0;
-          }
-          userInventory[item.icon]++;
-          
-          // حفظ في Firebase
-          if (userData?.id) {
-            db.ref('users/' + userData.id + '/inventory').set(userInventory);
-          }
-          
-          updateInventoryDisplay();
         }
 
         function hashPassword(password) {
             let hash = 0;
             const str = password + "E-TIC-SALT-2026";
             for (let i = 0; i < str.length; i++) {
-                const char = str.charCodeAt(i);                hash = ((hash << 5) - hash) + char;
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
                 hash = hash & hash;
             }
-            return 'h_' + Math.abs(hash).toString(36) + '_' + btoa(password).substring(0, 12);
-        }
+            return 'h_' + Math.abs(hash).toString(36) + '_' + btoa(password).substring(0, 12);        }
 
         function initParticles() {
             const c = document.getElementById('particles');
             for(let i=0; i<20; i++) {
-                const p = document.createElement('div'); p.className='particle';
-                p.style.width = Math.random()*6+2+'px'; p.style.height=p.style.width;
-                p.style.left = Math.random()*100+'%'; p.style.animationDelay=Math.random()*10+'s';
-                p.style.animationDuration=Math.random()*10+10+'s'; c.appendChild(p);
+                const p = document.createElement('div'); 
+                p.className='particle';
+                p.style.width = Math.random()*6+2+'px'; 
+                p.style.height=p.style.width;
+                p.style.left = Math.random()*100+'%'; 
+                p.style.animationDelay=Math.random()*10+'s';
+                p.style.animationDuration=Math.random()*10+10+'s'; 
+                c.appendChild(p);
             }
         }
 
@@ -1656,21 +1068,25 @@
             btn.disabled = true;
             
             try {
+                console.log('🔍 Attempting login for:', email);
+                
                 let foundUid = null;
                 let foundUser = null;
                 
                 try {
                     const snap = await Promise.race([
                         db.ref('users').orderByChild('email').equalTo(email).once('value'),
-                        new Promise((_, reject) => setTimeout(() => reject(new Error('TIMEOUT')), 10000))
-                    ]);
-                                        const users = snap.val();
+                        new Promise((_, reject) => setTimeout(() => reject(new Error('TIMEOUT')), 10000))                    ]);
+                    
+                    const users = snap.val();
                     if(users) {
                         const uid = Object.keys(users)[0];
                         foundUid = uid;
                         foundUser = users[uid];
+                        console.log('✅ User found:', uid);
                     }
                 } catch(fastErr) {
+                    console.log('⚠️ Fast query failed, trying fallback:', fastErr.message);
                     try {
                         const allSnap = await Promise.race([
                             db.ref('users').once('value'),
@@ -1683,6 +1099,7 @@
                                 if(allUsers[uid].email && allUsers[uid].email.toLowerCase() === email) {
                                     foundUid = uid;
                                     foundUser = allUsers[uid];
+                                    console.log('✅ User found via fallback:', uid);
                                     break;
                                 }
                             }
@@ -1705,26 +1122,20 @@
                 
                 if(userData.isFrozen) throw new Error("هذا الحساب مجمد. تواصل مع الدعم");
                 
-                try {
-                    localStorage.setItem('etic_uid', userData.id);
-                    localStorage.setItem('etic_user', JSON.stringify(userData));
-                } catch(storageErr) {
-                    console.warn('localStorage failed:', storageErr);
-                }
+                localStorage.setItem('etic_uid', userData.id);
+                localStorage.setItem('etic_user', JSON.stringify(userData));
                 
-                document.getElementById('authContainer').classList.add('hidden');
-                document.getElementById('mainApp').style.display = 'block';                document.getElementById('bottomNav').style.display = 'flex';
+                document.getElementById('authContainer').style.display = 'none';                document.getElementById('mainApp').style.display = 'block';
+                document.getElementById('bottomNav').style.display = 'flex';
                 
                 initPlans();
                 updateUI();
                 startNotificationsListener();
-                checkSmartNotifications();
-                checkNotificationPermission();
                 loadAchievements();
                 showToast(`مرحباً ${userData.name} 👋`, 'success');
                 
             } catch(err) {
-                console.error('Login error:', err);
+                console.error('❌ Login error:', err);
                 showToast(err.message || "حدث خطأ في تسجيل الدخول", 'error');
             } finally {
                 btn.innerHTML = orig;
@@ -1762,8 +1173,8 @@
                     const users = snap.val();
                     if(users) foundUid = Object.keys(users)[0];
                 } catch(e) {
-                    const allSnap = await db.ref('users').once('value');                    const allUsers = allSnap.val();
-                    if(allUsers) {
+                    const allSnap = await db.ref('users').once('value');
+                    const allUsers = allSnap.val();                    if(allUsers) {
                         for(const uid in allUsers) {
                             if(allUsers[uid].email && allUsers[uid].email.toLowerCase() === email) {
                                 foundUid = uid;
@@ -1802,6 +1213,8 @@
             btn.disabled = true;
             
             try {
+                console.log('📝 Creating account for:', email);
+                
                 let emailExists = false;
                 try {
                     const exists = await Promise.race([
@@ -1810,8 +1223,8 @@
                     ]);
                     emailExists = exists.exists();
                 } catch(e) {
-                    const allSnap = await db.ref('users').once('value');
-                    const allUsers = allSnap.val();                    if(allUsers) {
+                    const allSnap = await db.ref('users').once('value');                    const allUsers = allSnap.val();
+                    if(allUsers) {
                         for(const uid in allUsers) {
                             if(allUsers[uid].email && allUsers[uid].email.toLowerCase() === email) {
                                 emailExists = true;
@@ -1830,7 +1243,6 @@
                     balance: 0, daily: 0, plan: "لا توجد باقة", planId: 0,
                     lastMine: "", isFrozen: false, referrals: 0, totalEarned: 0,
                     miningClicks: 0, lastMiningDate: "", points: 0, consecutiveMiningDays: 0,
-                    inventory: {},
                     createdAt: firebase.database.ServerValue.TIMESTAMP, planExpiresAt: 0
                 };
                 
@@ -1852,17 +1264,17 @@
                 localStorage.setItem('etic_uid', uid);
                 localStorage.setItem('etic_user', JSON.stringify(userData));
                 
-                document.getElementById('authContainer').classList.add('hidden');
+                document.getElementById('authContainer').style.display = 'none';
                 document.getElementById('mainApp').style.display = 'block';
                 document.getElementById('bottomNav').style.display = 'flex';
                 
                 initPlans();
                 updateUI();
                 startNotificationsListener();
-                checkNotificationPermission();
-                loadAchievements();                showToast("تم إنشاء الحساب بنجاح! 🎉", 'success');
-                
+                loadAchievements();
+                showToast("تم إنشاء الحساب بنجاح! 🎉", 'success');                
             } catch(err) {
+                console.error('❌ Signup error:', err);
                 showToast(err.message || "حدث خطأ", 'error');
             } finally {
                 btn.innerHTML = orig;
@@ -1881,15 +1293,6 @@
                     read: false,
                     createdAt: firebase.database.ServerValue.TIMESTAMP
                 });
-                
-                if (Notification.permission === 'granted') {
-                    try {
-                        new Notification('E-TIC: ' + title, {
-                            body: message,
-                            tag: notifId
-                        });
-                    } catch(e) { console.log('Native notification failed:', e); }
-                }
             } catch(e) {
                 console.error('Create notification error:', e);
             }
@@ -1909,7 +1312,8 @@
             const arr = Object.values(notifications);
             const unreadCount = arr.filter(n => !n.read).length;
             
-            const badge = document.getElementById('notificationBadge');            if (unreadCount > 0) {
+            const badge = document.getElementById('notificationBadge');
+            if (unreadCount > 0) {
                 badge.innerText = unreadCount > 99 ? '99+' : unreadCount;
                 badge.classList.remove('hidden');
             } else {
@@ -1917,8 +1321,7 @@
             }
             
             renderNotifications(arr);
-          });
-        }
+          });        }
 
         function renderNotifications(notifications) {
             const listEl = document.getElementById('notificationList');
@@ -1958,7 +1361,8 @@
             if (hours < 24) return `منذ ${hours} ساعة`;
             const days = Math.floor(hours / 24);
             if (days < 7) return `منذ ${days} يوم`;
-            return new Date(timestamp).toLocaleDateString('ar-EG');        }
+            return new Date(timestamp).toLocaleDateString('ar-EG');
+        }
 
         async function markNotificationRead(notifId) {
             if (!userData?.id) return;
@@ -1966,7 +1370,6 @@
                 await db.ref('notifications/' + userData.id + '/' + notifId + '/read').set(true);
             } catch(e) { console.error(e); }
         }
-
         async function markAllNotificationsRead() {
             if (!userData?.id) return;
             try {
@@ -1986,125 +1389,6 @@
             dropdown.classList.toggle('show');
         }
 
-        async function checkSmartNotifications() {
-            if (!userData?.id) return;
-            const today = new Date().toDateString();
-            const lastSmartCheck = localStorage.getItem('etic_last_smart_check_' + userData.id);
-            
-            if (lastSmartCheck === today) return;
-            
-            if (userData.planId > 0) {
-                const clicks = userData.miningClicks || 0;
-                const lastMiningDate = userData.lastMiningDate;
-                
-                if (lastMiningDate !== today && clicks < MINING_CLICKS_PER_DAY) {
-                    const reminderSent = localStorage.getItem('etic_mining_reminder_' + userData.id + '_' + today);
-                    if (!reminderSent) {
-                        await createNotification(
-                            userData.id,
-                            '⚡ لا تنسَ التعدين اليومي!',
-                            `لديك ${MINING_CLICKS_PER_DAY} نقرات متاحة.`,
-                            'warning'
-                        );
-                        localStorage.setItem('etic_mining_reminder_' + userData.id + '_' + today, '1');
-                    }                }
-                
-                if (userData.planExpiresAt) {
-                    const daysLeft = Math.ceil((userData.planExpiresAt - Date.now()) / 86400000);
-                    const expiryKey = 'etic_expiry_notif_' + userData.id + '_' + daysLeft;
-                    
-                    if ((daysLeft === 7 || daysLeft === 3 || daysLeft === 1) && !localStorage.getItem(expiryKey)) {
-                        await createNotification(
-                            userData.id,
-                            '⏰ باقتك ستنتهي قريباً!',
-                            `باقة ${userData.plan} ستنتهي خلال ${daysLeft} يوم.`,
-                            'warning'
-                        );
-                        localStorage.setItem(expiryKey, '1');
-                    }
-                }
-            }
-            
-            localStorage.setItem('etic_last_smart_check_' + userData.id, today);
-        }
-
-        async function requestNotificationPermission() {
-            if (!('Notification' in window)) {
-                showToast('متصفحك لا يدعم الإشعارات', 'error');
-                return;
-            }
-            
-            if (Notification.permission === 'granted') {
-                showToast('الإشعارات مفعلة بالفعل ✅', 'success');
-                document.getElementById('enableNotifCard').classList.add('hidden');
-                return;
-            }
-            
-            if (Notification.permission !== 'denied') {
-                const permission = await Notification.requestPermission();
-                if (permission === 'granted') {
-                    showToast('تم تفعيل الإشعارات بنجاح! 🎉', 'success');
-                    document.getElementById('enableNotifCard').classList.add('hidden');
-                    new Notification('E-TIC: مرحباً! 👋', {
-                        body: 'ستصلك هنا جميع الإشعارات المهمة'
-                    });
-                } else {
-                    showToast('تم رفض الإذن بالإشعارات', 'error');
-                }
-            }
-        }
-
-        function checkNotificationPermission() {
-            if (!('Notification' in window)) return;
-            const card = document.getElementById('enableNotifCard');            if (Notification.permission === 'default') {
-                card.classList.remove('hidden');
-            } else {
-                card.classList.add('hidden');
-            }
-        }
-
-        function registerServiceWorker() {
-            if ('serviceWorker' in navigator) {
-                const swCode = `
-                    self.addEventListener('install', e => self.skipWaiting());
-                    self.addEventListener('activate', e => e.waitUntil(clients.claim()));
-                    self.addEventListener('fetch', e => {
-                        e.respondWith(
-                            caches.match(e.request).then(r => r || fetch(e.request).catch(() => new Response('Offline')))
-                        );
-                    });
-                `;
-                const blob = new Blob([swCode], { type: 'application/javascript' });
-                const swUrl = URL.createObjectURL(blob);
-                navigator.serviceWorker.register(swUrl).catch(err => console.log('SW failed:', err));
-            }
-        }
-
-        window.addEventListener('beforeinstallPrompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            if (!localStorage.getItem('etic_pwa_dismissed')) {
-                setTimeout(() => document.getElementById('pwaBanner').classList.add('show'), 5000);
-            }
-        });
-
-        async function installPWA() {
-            if (!deferredPrompt) {
-                showToast('افتح القائمة واختر "إضافة إلى الشاشة الرئيسية"', 'success');
-                document.getElementById('pwaBanner').classList.remove('show');
-                return;
-            }
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === 'accepted') showToast('تم التثبيت بنجاح! 🎉', 'success');
-            deferredPrompt = null;
-            document.getElementById('pwaBanner').classList.remove('show');
-        }
-
-        function dismissPWA() {
-            document.getElementById('pwaBanner').classList.remove('show');
-            localStorage.setItem('etic_pwa_dismissed', '1');
-        }
         function tabNav(el, id) {
             document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
             el.classList.add('active');
@@ -2114,10 +1398,7 @@
             window.scrollTo(0, 0);
             if(id === 'depositPage') setTimeout(loadUserDeposits, 100);
             if(id === 'withdrawPage') setTimeout(loadUserWithdrawals, 100);
-            if(id === 'miningPage') {
-                updateCurrentItemDisplay();
-                updateInventoryDisplay();
-            }
+            if(id === 'miningPage') updateCurrentItemDisplay();
         }
 
         function openPlanModal(planId) {
@@ -2138,8 +1419,7 @@
             document.getElementById('modalTotalReturn').innerText = totalReturn.toFixed(2);
             document.getElementById('modalNetProfit').innerText = '$' + netProfit.toFixed(2);
             
-            const confirmBtn = document.getElementById('modalConfirmBtn');
-            if(userData.planId === plan.id) {
+            const confirmBtn = document.getElementById('modalConfirmBtn');            if(userData.planId === plan.id) {
                 confirmBtn.disabled = true;
                 confirmBtn.innerHTML = '<i class="fa-solid fa-check-circle"></i><span>الباقة نشطة</span>';
             } else if(userData.balance < plan.p) {
@@ -2152,10 +1432,13 @@
             document.getElementById('planDetailsModal').classList.add('show');
             document.body.style.overflow = 'hidden';
         }
+        
         function closePlanModal() {
             document.getElementById('planDetailsModal').classList.remove('show');
-            document.body.style.overflow = '';            selectedPlanForPurchase = null;
+            document.body.style.overflow = '';
+            selectedPlanForPurchase = null;
         }
+        
         function confirmBuyFromModal() {
             if(!selectedPlanForPurchase) return;
             buyPlan(selectedPlanForPurchase.id, selectedPlanForPurchase.n, selectedPlanForPurchase.p, selectedPlanForPurchase.d);
@@ -2185,15 +1468,10 @@
             
             const perClick = userData.daily / MINING_CLICKS_PER_DAY;
             userData.balance += perClick;
-            userData.miningClicks = (userData.miningClicks || 0) + 1;
-            userData.totalEarned = (userData.totalEarned || 0) + perClick;
+            userData.miningClicks = (userData.miningClicks || 0) + 1;            userData.totalEarned = (userData.totalEarned || 0) + perClick;
             
-            // اختيار بضاعة عشوائية جديدة
             const randomItem = getRandomMiningItem();
             currentItem = randomItem;
-            
-            // إضافة للمخزن
-            addToInventory(randomItem);
             
             saveUserData();
             updateUI();
@@ -2203,7 +1481,8 @@
             
             if(userData.miningClicks >= MINING_CLICKS_PER_DAY) {
                 setTimeout(() => {
-                    showToast(`🎉 تم استخراج كامل العائد اليومي! +$${userData.daily.toFixed(2)}`, 'success');                    setTimeout(checkAchievements, 500);
+                    showToast(`🎉 تم استخراج كامل العائد اليومي! +$${userData.daily.toFixed(2)}`, 'success');
+                    setTimeout(checkAchievements, 500);
                 }, 1000);
             }
         }
@@ -2238,8 +1517,7 @@
                     let statusClass = '', statusText = '';
                     if(d.status === 'pending') { statusClass = 'status-pending'; statusText = '⏳ معلق'; }
                     else if(d.status === 'approved') { statusClass = 'status-approved'; statusText = '✅ مكتمل'; }
-                    else if(d.status === 'rejected') { statusClass = 'status-rejected'; statusText = '❌ مرفوض'; }
-                    const date = d.createdAt ? new Date(d.createdAt).toLocaleDateString('ar-EG') : '';
+                    else if(d.status === 'rejected') { statusClass = 'status-rejected'; statusText = '❌ مرفوض'; }                    const date = d.createdAt ? new Date(d.createdAt).toLocaleDateString('ar-EG') : '';
                     html += `<div class="deposit-item"><div class="text-right"><p class="font-bold text-accent">$${d.amount}</p><p class="text-[10px] text-secondary">${date}</p></div><span class="deposit-status ${statusClass}">${statusText}</span></div>`;
                 });
                 listEl.innerHTML = html;
@@ -2252,7 +1530,8 @@
             
             if(!address || address.length < 30) return showToast("عنوان محفظة غير صحيح", 'error');
             if(!amount || amount < 5) return showToast("الحد الأدنى للسحب هو $5", 'error');
-            if(amount > userData.balance) return showToast("رصيد غير كافي", 'error');            
+            if(amount > userData.balance) return showToast("رصيد غير كافي", 'error');
+            
             const now = Date.now();
             const WITHDRAW_COOLDOWN_DAYS = 7;
             if(userData.lastWithdraw && (now - userData.lastWithdraw < WITHDRAW_COOLDOWN_DAYS * 86400000)) {
@@ -2287,8 +1566,7 @@
             if(!userData?.id) return;
             const listEl = document.getElementById('userWithdrawalsList');
             listEl.innerHTML = '<p class="text-center text-secondary text-xs">جاري التحميل...</p>';
-            try {
-                const snap = await db.ref('withdrawRequests').orderByChild('userId').equalTo(userData.id).limitToLast(10).once('value');
+            try {                const snap = await db.ref('withdrawRequests').orderByChild('userId').equalTo(userData.id).limitToLast(10).once('value');
                 const withdrawals = snap.val();
                 if(!withdrawals) { listEl.innerHTML = '<p class="text-center text-secondary text-xs">لا يوجد سحوبات</p>'; return; }
                 let html = '';
@@ -2301,7 +1579,8 @@
                     html += `<div class="deposit-item flex-col items-start gap-1">
                         <div class="flex justify-between w-full">
                             <p class="font-bold text-accent">$${w.amount}</p>
-                            <span class="deposit-status ${statusClass}">${statusText}</span>                        </div>
+                            <span class="deposit-status ${statusClass}">${statusText}</span>
+                        </div>
                         <p class="text-[10px] text-secondary">يصلك: $${w.receiveAmount?.toFixed(2) || 0}</p>
                         <p class="text-[10px] text-secondary">${date}</p>
                     </div>`;
@@ -2336,8 +1615,7 @@
             } catch(e) { listEl.innerHTML = '<p class="text-center text-danger text-xs">خطأ</p>'; }
         }
 
-        async function processDeposit(depositId, newStatus) {
-            if(userData?.email !== MASTER_ADMIN) return;
+        async function processDeposit(depositId, newStatus) {            if(userData?.email !== MASTER_ADMIN) return;
             if(!confirm(`هل أنت متأكد؟`)) return;
             try {
                 const snap = await db.ref('depositRequests/' + depositId).once('value');
@@ -2350,7 +1628,8 @@
                 
                 if(newStatus === 'approved') {
                     await db.ref('users/' + deposit.userId + '/balance').transaction(b => (b || 0) + deposit.amount);
-                    await createNotification(deposit.userId, 'تم اعتماد الإيداع ✅', `تمت إضافة $${deposit.amount} إلى رصيدك.`, 'success');                    showToast(`تمت الموافقة وإضافة $${deposit.amount} ✅`, 'success');
+                    await createNotification(deposit.userId, 'تم اعتماد الإيداع ✅', `تمت إضافة $${deposit.amount} إلى رصيدك.`, 'success');
+                    showToast(`تمت الموافقة وإضافة $${deposit.amount} ✅`, 'success');
                 } else {
                     await createNotification(deposit.userId, 'تم رفض الإيداع ❌', `تم رفض طلب إيداع $${deposit.amount}.`, 'danger');
                     showToast("تم رفض الطلب ❌", 'success');
@@ -2385,8 +1664,7 @@
                                 <p class="text-[10px] text-success">يصله: $${w.receiveAmount?.toFixed(2)}</p>
                             </div>
                         </div>
-                        <div class="flex gap-2 w-full mt-2">
-                            <button onclick="processWithdrawal('${w.id}', 'approved')" class="btn-success flex-1 text-xs py-2 !m-0 !rounded-lg"><i class="fa-solid fa-check"></i> موافقة</button>
+                        <div class="flex gap-2 w-full mt-2">                            <button onclick="processWithdrawal('${w.id}', 'approved')" class="btn-success flex-1 text-xs py-2 !m-0 !rounded-lg"><i class="fa-solid fa-check"></i> موافقة</button>
                             <button onclick="processWithdrawal('${w.id}', 'rejected')" class="btn-danger flex-1 text-xs py-2 !m-0 !rounded-lg"><i class="fa-solid fa-times"></i> رفض</button>
                         </div>
                     </div>`;
@@ -2399,7 +1677,8 @@
             if(userData?.email !== MASTER_ADMIN) return;
             if(!confirm(`هل أنت متأكد؟`)) return;
             try {
-                const snap = await db.ref('withdrawRequests/' + withdrawalId).once('value');                const withdrawal = snap.val();
+                const snap = await db.ref('withdrawRequests/' + withdrawalId).once('value');
+                const withdrawal = snap.val();
                 if(!withdrawal || withdrawal.status !== 'pending') return showToast("تمت المعالجة مسبقاً", 'error');
                 
                 await db.ref('withdrawRequests/' + withdrawalId).update({
@@ -2434,8 +1713,7 @@
                 div.className = `card !p-4 text-center cursor-pointer ${isCurrent ? '!border-accent bg-white/5' : ''}`;
                 div.onclick = () => openPlanModal(p.id);
                 div.innerHTML = `<h4 class="font-bold text-accent text-lg mb-1">${p.n}</h4><p class="text-2xl font-black text-white mb-2">$${p.p}</p><p class="text-xs text-secondary mb-3">$${p.d}/يوم • 6 أشهر</p><button class="w-full py-2 rounded-xl text-xs font-bold ${isCurrent ? 'bg-white/10 text-muted' : 'btn-3d !m-0 !py-2'}">${isCurrent ? 'الباقة الحالية' : 'عرض التفاصيل'}</button>`;
-                list.appendChild(div);
-            });
+                list.appendChild(div);            });
         }
 
         async function buyPlan(id, name, price, daily) {
@@ -2449,6 +1727,7 @@
             createNotification(userData.id, `تم تفعيل باقة ${name} 🎉`, `بدأت رحلة أرباحك اليومية $${daily}.`, 'success');
             setTimeout(checkAchievements, 500);
         }
+
         function updateUI() {
             if(!userData) return;
             document.getElementById('pBalance').innerText = (userData.balance||0).toFixed(2);
@@ -2483,8 +1762,7 @@
                 miningBtn.innerHTML = '<i class="fa-solid fa-check me-2"></i> اكتمل التعدين';
             } else {
                 statusEl.innerHTML = `النقرات المتبقية: ${remaining}/${MINING_CLICKS_PER_DAY}`;
-                miningBtn.disabled = false;
-                miningBtn.innerHTML = `<i class="fa-solid fa-hand-pointer me-2"></i> انقر للتعدين (${clicks}/${MINING_CLICKS_PER_DAY})`;
+                miningBtn.disabled = false;                miningBtn.innerHTML = `<i class="fa-solid fa-hand-pointer me-2"></i> انقر للتعدين (${clicks}/${MINING_CLICKS_PER_DAY})`;
             }
             
             const initials = userData.name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
@@ -2497,10 +1775,7 @@
                 const days = Math.ceil((userData.planExpiresAt - Date.now()) / 86400000);
                 if(days <= 0) { expC.classList.remove('active'); expT.innerText = "⚠️ انتهت - جدد الآن"; expT.style.color="var(--danger)"; }
                 else { expC.classList.add('active'); expT.innerText = `ينتهي خلال: ${days} يوم`; expT.style.color="#6ee7b7"; }
-            } else { expC.classList.add('hidden'); }            
-            // تحميل المخزن
-            userInventory = userData.inventory || {};
-            updateInventoryDisplay();
+            } else { expC.classList.add('hidden'); }
             
             updateLevelDisplay();
             
@@ -2536,8 +1811,7 @@
         }
         function closeAdminModal() { document.getElementById('adminModal').style.display='none'; }
 
-        async function executeAdminAction(type) {
-            const tid=document.getElementById('adminTargetId').value.trim(); if(!tid) return showToast("أدخل UID", 'error');
+        async function executeAdminAction(type) {            const tid=document.getElementById('adminTargetId').value.trim(); if(!tid) return showToast("أدخل UID", 'error');
             try {
                 let snap=await db.ref('users/'+tid).once('value'); let target=snap.val(); let actualUid=tid;
                 if(!target){const all=await db.ref('users').once('value');const vals=all.val();if(vals){for(let u in vals){if(u==tid||u==tid.toString()||parseInt(u)==parseInt(tid)){target=vals[u];actualUid=u;break;}}}}
@@ -2546,7 +1820,8 @@
                 if(type==='freeze'){target.isFrozen=!target.isFrozen;showToast(target.isFrozen?"تم التجميد 🔒":"تم الفك 🔓");}
                 if(type==='plan'){const pid=parseInt(document.getElementById('adminPlanLv').value);const p=plans.find(x=>x.id===pid);if(p){target.plan=p.n;target.planId=p.id;target.daily=p.d;target.planExpiresAt=Date.now()+(PLAN_DURATION_DAYS*86400000);showToast("تم تعيين الباقة ✅");}else return showToast("باقة غير صحيحة",'error');}
                 await db.ref('users/'+actualUid).update(target);
-                if(userData&&userData.id===actualUid){userData=Object.assign({},target);updateUI();}            }catch(e){showToast("خطأ: "+e.message,'error');}
+                if(userData&&userData.id===actualUid){userData=Object.assign({},target);updateUI();}
+            }catch(e){showToast("خطأ: "+e.message,'error');}
         }
         
         async function listAllUsers(){
@@ -2585,8 +1860,7 @@
                 if(!c){l.innerHTML='<p class="text-center text-secondary text-xs">لا يوجد</p>';return;}
                 l.innerHTML=Object.entries(c).reverse().map(([k,v])=>`<div class="coupon-item"><span class="text-accent font-bold">${k} ($${v.value})</span><span class="${v.usedBy?'text-danger':'text-success'} text-xs">${v.usedBy?'مستخدم':'متاح'}</span></div>`).join('');
             }catch(e){l.innerHTML='<p class="text-center text-danger text-xs">خطأ</p>';}
-        }
-        
+        }        
         async function deleteUsedCoupons(){
             if(!confirm("حذف جميع الكوبونات المستخدمة؟"))return;
             try{
@@ -2595,7 +1869,8 @@
                 let d=0;
                 if(c){
                     const u={};
-                    for(const k in c){if(c[k].usedBy){u['coupons/'+k]=null;d++;}}                    if(Object.keys(u).length>0)await db.ref().update(u);
+                    for(const k in c){if(c[k].usedBy){u['coupons/'+k]=null;d++;}}
+                    if(Object.keys(u).length>0)await db.ref().update(u);
                 }
                 showToast(`تم حذف ${d} كوبون ✅`);
                 loadAdminCoupons();
@@ -2618,33 +1893,45 @@
             }catch(e){showToast("خطأ",'error');}
         }
 
+        // تهيئة التطبيق
         window.onload = () => {
+            console.log('🚀 Application starting...');
             initParticles();
-            registerServiceWorker();
             
             const uid = localStorage.getItem('etic_uid');
             if(uid) {
+                console.log('📂 Loading user data for:', uid);
                 db.ref('users/'+uid).once('value').then(s => {
                     if(s.exists()) { 
                         userData={...s.val(), id:uid}; 
-                        document.getElementById('authContainer').classList.add('hidden'); 
-                        document.getElementById('mainApp').style.display='block'; 
-                        document.getElementById('bottomNav').style.display='flex'; 
-                        initPlans(); 
-                        updateUI();
+                        console.log('✅ User data loaded successfully');
+                        document.getElementById('loadingScreen').style.display = 'none';
+                        document.getElementById('authContainer').style.display = 'none';
+                        document.getElementById('mainApp').style.display = 'block';
+                        document.getElementById('bottomNav').style.display = 'flex';
+                        initPlans();                         updateUI();
                         startNotificationsListener();
-                        checkSmartNotifications();
-                        checkNotificationPermission();
                         loadAchievements();
-                        setInterval(checkSmartNotifications, 3600000);
                     } else {
+                        console.log('⚠️ User not found, clearing storage');
                         localStorage.clear();
+                        document.getElementById('loadingScreen').style.display = 'none';
+                        document.getElementById('authContainer').style.display = 'flex';
                     }
-                }).catch(e => console.error('Load error:', e));
+                }).catch(e => {
+                    console.error('❌ Load error:', e);
+                    document.getElementById('loadingScreen').style.display = 'none';
+                    document.getElementById('authContainer').style.display = 'flex';
+                });
+            } else {
+                console.log('👤 No user logged in, showing auth');
+                document.getElementById('loadingScreen').style.display = 'none';
+                document.getElementById('authContainer').style.display = 'flex';
             }
             
             document.querySelector('.SignUpLink')?.addEventListener('click', e=>{
-                e.preventDefault();                document.getElementById('authContainer').classList.add('active');
+                e.preventDefault();
+                document.getElementById('authContainer').classList.add('active');
             });
             document.querySelector('.SignInLink')?.addEventListener('click', e=>{
                 e.preventDefault();
@@ -2660,6 +1947,8 @@
                     }
                 }
             });
+            
+            console.log('✅ Application initialized successfully');
         };
     </script>
 </body>
